@@ -1,6 +1,9 @@
 # AngularMentoring
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.9.
+This project was generated with 
+- nodejs version 10.16.3
+- npm version 6.9.0
+- [Angular CLI](https://github.com/angular/angular-cli) version 8.3.9
 
 ## Development server
 
