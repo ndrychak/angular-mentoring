@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'agm-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.sass']
+  styleUrls: ['./search.component.styl']
 })
-export class SearchComponent implements OnInit {
+
+export class SearchComponent {
+  searchText: string;
 
   constructor() { }
 
-  ngOnInit() {
+  findCourse(): void {
+    console.log(`search: ${this.searchText}`);
   }
-
 }

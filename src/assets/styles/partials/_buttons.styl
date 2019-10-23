@@ -1,0 +1,24 @@
+.button
+  font 12px/1.7 font-sans-pro
+  border-radius 3px
+  color map-get(colors, 'white')
+  background map-get(colors, 'dark-sky-blue')
+  padding 2px 20px
+  &:hover
+    background map-get(colors, 'cerulean')
+
+.button-large
+  font-size 14px
+  line-height 2.57
+  &.button-icon
+    padding-left 48px
+
+.button-icon
+  position relative
+  padding-left 35px
+  .icon:not(svg)
+    position absolute
+    left 14px
+    top 0
+    bottom 0
+    margin auto

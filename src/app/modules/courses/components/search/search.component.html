@@ -1,1 +1,11 @@
-<p>search</p>
+<form class="search-form">
+  <svg-icon-sprite [src]="'search'" [class]="'search-icon'"></svg-icon-sprite>
+  <label>
+    <input
+      class="search-input"
+      placeholder="Text to search"
+      name="searchText"
+      [(ngModel)]="searchText" />
+  </label>
+  <button type="submit" class="search-submit" (click)="findCourse()">Search</button>
+</form>

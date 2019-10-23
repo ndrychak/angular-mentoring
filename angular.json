@@ -7,7 +7,7 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "sass"
+          "style": "styl"
         }
       },
       "root": "",
@@ -28,8 +28,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.sass"
+              "src/assets/styles/styles-reset.styl",
+              "src/assets/styles/styles.styl"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets/styles/partials/"
+              ]
+            },
             "scripts": []
           },
           "configurations": {
@@ -93,7 +99,8 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.sass"
+              "src/assets/sass/styles-reset.sass",
+              "src/assets/sass/styles.sass"
             ],
             "scripts": []
           }

@@ -1,0 +1,76 @@
+@import "_variables.styl"
+@import "_mixins.styl"
+
+.courses-list-item
+  border-radius 8px
+  box-shadow 0 1px 24px 0 rgba(18, 21, 35, 0.08)
+  margin-bottom 24px
+  min-height 163px
+  padding 24px
+  background map-get(colors, 'white')
+  display flex
+  flex-direction column
+  +up-desktop()
+    flex-direction row
+
+.header
+  display flex
+  justify-content space-between
+  flex-direction column
+  +up-desktop()
+    flex-direction row
+    align-items center
+
+.title
+  color map-get(colors, 'dark')
+  font 600 24px/1.25 font-sans-pro
+  margin 0 0 8px
+
+.time-wrapper
+  flex-shrink 0
+  margin-bottom 10px
+  +up-desktop()
+    margin-bottom 0
+
+.duration,
+.date
+  color map-get(colors, 'cloudy-blue')
+  font 12px font-sans-pro
+  position relative
+  padding-left 22px
+
+.date
+  margin-left 15px
+
+.icon-clock
+.icon-calendar
+  width 16px
+  height 16px
+  position absolute
+  left 0
+  bottom 0
+
+.description
+  color map-get(colors, 'slate-grey')
+  font 14px/1.71 font-sans-pro
+
+.actions
+  display flex
+  flex-shrink 0
+  width 260px
+  flex-direction row
+  margin-left auto
+  align-items flex-end
+  justify-content flex-end
+  margin-top 15px
+  +up-desktop()
+    margin-top 0
+    margin-bottom 25px
+
+.button-delete
+  margin-left 12px
+
+.icon-pen,
+.icon-trash
+  width 13px
+  height 14px
