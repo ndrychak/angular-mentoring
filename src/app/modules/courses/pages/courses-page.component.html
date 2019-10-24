@@ -1,5 +1,12 @@
-<p>-------- courses page start --------</p>
-<agm-search></agm-search>
-<agm-add-course-button></agm-add-course-button>
-<agm-courses-list></agm-courses-list>
-<p>-------- courses page end --------</p>
+<agm-breadcrumbs></agm-breadcrumbs>
+
+<div class="page-container page-content-wrapper">
+  <agm-search></agm-search>
+  <div class="add-course">
+    <button class="button button-icon button-large button-add-course">
+      <svg-icon-sprite [src]="'plus'" [class]="'icon icon-plus'"></svg-icon-sprite>
+      Add course
+    </button>
+  </div>
+  <agm-courses-list></agm-courses-list>
+</div>

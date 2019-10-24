@@ -1,1 +1,31 @@
-<p>courses-list-item <br> {{coursesListItem | json}}</p>
+<article class="courses-list-item">
+  <div class="content">
+    <header class="header">
+      <h2 class="title">{{coursesListItem.title}}</h2>
+      <div class="time-wrapper">
+      <span class="duration">
+        <svg-icon-sprite [src]="'clock'" [class]="'icon icon-clock'"></svg-icon-sprite>
+        {{coursesListItem.duration | hours}}
+      </span>
+        <span class="date">
+        <svg-icon-sprite [src]="'calendar'" [class]="'icon icon-calendar'"></svg-icon-sprite>
+          {{coursesListItem.creationDate | date:'d MMM, y'}}
+      </span>
+      </div>
+    </header>
+    <div class="description">
+      {{coursesListItem.description}}
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="button button-icon button-edit" (click)="editCourse()">
+      <svg-icon-sprite [src]="'pen'" [class]="'icon icon-pen'"></svg-icon-sprite>
+      Edit
+    </button>
+    <button class="button button-icon button-delete" (click)="deleteButtonHandler()">
+      <svg-icon-sprite [src]="'trash'" [class]="'icon icon-trash'"></svg-icon-sprite>
+      Delete
+    </button>
+  </div>
+</article>

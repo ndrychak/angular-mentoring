@@ -3,8 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.sass']
+  styleUrls: ['./app.component.styl']
 })
-export class AppComponent {
-  title = 'angular-mentoring';
-}
+
+export class AppComponent {}

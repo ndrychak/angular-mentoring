@@ -1,5 +1,11 @@
-<section>
-  courses-list
-  <agm-courses-list-item *ngFor="let coursesListItem of coursesList" [coursesListItem]="coursesListItem">
+<section class="courses-list">
+  <agm-courses-list-item
+    *ngFor="let coursesListItem of coursesList"
+    [coursesListItem]="coursesListItem"
+    (deletedCourse)="onDeletedCourse($event)">
   </agm-courses-list-item>
 </section>
+
+<button class="courses-load-more" (click)="loadMoreCourses()">
+  <span class="courses-load-more-text">load more</span>
+</button>

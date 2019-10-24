@@ -1,0 +1,38 @@
+@import "_variables.styl"
+@import "_mixins.styl"
+
+.search-form
+  display flex
+  position relative
+
+.search-icon
+  transform rotate(90deg)
+  width 21px
+  height 21px
+  position absolute
+  top 14px
+  left 14px
+  color map-get(colors, 'steel')
+
+.search-input
+  width 100%
+  max-width 360px
+  height 48px
+  padding 12px 42px
+  border-radius 3px
+  border solid 1px map-get(colors, 'mishka')
+  background-color map-get(colors, 'white')
+  font 14px/1.71 font-sans-pro
+  color map-get(colors, 'slate-grey')
+
+.search-submit
+  width 100px
+  height 48px
+  border-radius 3px
+  background map-get(colors, 'sick-green')
+  font 18px/2.56 font-sans-pro
+  color map-get(colors, 'white')
+  flex-shrink 0
+  margin-left 6px
+  &:hover
+    background map-get(colors, 'sushi')
