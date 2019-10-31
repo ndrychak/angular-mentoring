@@ -90,6 +90,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
+            "codeCoverage": true,
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.spec.json",
@@ -99,9 +100,14 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/sass/styles-reset.sass",
-              "src/assets/sass/styles.sass"
+              "src/assets/styles/styles-reset.styl",
+              "src/assets/styles/styles.styl"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/assets/styles/partials/"
+              ]
+            },
             "scripts": []
           }
         },
