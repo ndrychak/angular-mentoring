@@ -1,17 +1,18 @@
 import { Component } from '@angular/core';
+import { CoursesService } from '../../courses.service';
 
 @Component({
   selector: 'agm-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.styl']
+  styleUrls: ['./search.component.styl'],
 })
 
 export class SearchComponent {
   searchText: string;
 
-  constructor() { }
+  constructor(private coursesService: CoursesService) { }
 
   findCourse(): void {
-    console.log(`search: ${this.searchText}`);
+    this.coursesService.setFilterValue(this.searchText);
   }
 }

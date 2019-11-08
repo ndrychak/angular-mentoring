@@ -1,43 +1,35 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-
 import { CoursesListComponent } from './courses-list.component';
 
-import { TimePipe } from '../../../../shared/pipes/time.pipe';
-
 describe('CoursesListComponent', () => {
-  let component: CoursesListComponent;
-  let fixture: ComponentFixture<CoursesListComponent>;
-  let consoleSpy;
+  let component;
+  let mockCoursesService;
+  let mockFilterPipe;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [
-        CoursesListComponent,
-        TimePipe
-      ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
-    }).compileComponents();
+  const course1 = {
+    id: 42,
+    title: 'aaa',
+    creationDate: '2019-08-15T13:45:30',
+    duration: 100,
+    topRated: false,
+    description: 'test info'
+  };
 
-    fixture = TestBed.createComponent(CoursesListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    mockCoursesService = jasmine.createSpyObj(['filterState', 'getCourses']);
+    mockFilterPipe = jasmine.createSpyObj(['transform']);
 
-    consoleSpy = spyOn(console, 'log');
-  }));
+    component = new CoursesListComponent(mockCoursesService, mockFilterPipe);
 
-  it('should log message on load more button click', () => {
-    const buttonMore = fixture.nativeElement.querySelector('.courses-load-more');
-
-    buttonMore.dispatchEvent(new Event('click'));
-    fixture.detectChanges();
-
-    expect(consoleSpy).toHaveBeenCalledWith('load more courses');
+    component.allCourses = [course1];
   });
 
-  it('should log course id on delete course action', () => {
-    component.onDeletedCourse(1);
+  afterEach(() => {
+    component = null;
+  });
 
-    expect(consoleSpy).toHaveBeenCalledWith('delete: courseId = 1');
+  it('should call filter pipe to filter courses', () => {
+    component.filterCourses('aaa');
+
+    expect(component.filterPipe.transform).toHaveBeenCalledWith(component.allCourses, 'title', 'aaa');
   });
 });

@@ -1,31 +1,22 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-
 import { SearchComponent } from './search.component';
 
 describe('SearchComponent', () => {
-  let component: SearchComponent;
-  let fixture: ComponentFixture<SearchComponent>;
-  let consoleSpy;
+  let component;
+  let mockCoursesService;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ SearchComponent ],
-      imports: [ FormsModule ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
-    }).compileComponents();
+  beforeEach(() => {
+    mockCoursesService = jasmine.createSpyObj(['setFilterValue']);
 
-    fixture = TestBed.createComponent(SearchComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    component = new SearchComponent(mockCoursesService);
+  });
 
-    consoleSpy = spyOn(console, 'log');
-  }));
+  afterEach(() => {
+    component = null;
+  });
 
-  it('should log message', () => {
+  it('should use coursesService to trigger observable event', () => {
     component.findCourse();
 
-    expect(consoleSpy).toHaveBeenCalled();
+    expect(mockCoursesService.setFilterValue).toHaveBeenCalled();
   });
 });

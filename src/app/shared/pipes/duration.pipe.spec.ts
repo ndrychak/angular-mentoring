@@ -1,11 +1,11 @@
 import { async } from '@angular/core/testing';
-import { TimePipe } from './time.pipe';
+import { DurationPipe } from './duration.pipe';
 
-describe('TimePipe', () => {
+describe('DurationPipe', () => {
   let pipe;
 
   beforeEach(async(() => {
-    pipe = new TimePipe();
+    pipe = new DurationPipe();
   }));
 
   it('should return hours only', () => {

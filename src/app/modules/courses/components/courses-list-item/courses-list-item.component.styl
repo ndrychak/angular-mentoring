@@ -2,16 +2,16 @@
 @import "_mixins.styl"
 
 .courses-list-item
-  border-radius 8px
-  box-shadow 0 1px 24px 0 rgba(18, 21, 35, 0.08)
+  border 3px solid transparent
   margin-bottom 24px
   min-height 163px
-  padding 24px
-  background map-get(colors, 'white')
+  padding 20px
   display flex
   flex-direction column
   +up-desktop()
     flex-direction row
+  &.top-rated
+    background #FCF094
 
 .header
   display flex
@@ -57,20 +57,27 @@
 .actions
   display flex
   flex-shrink 0
-  width 260px
   flex-direction row
   margin-left auto
   align-items flex-end
   justify-content flex-end
   margin-top 15px
+  width 100%
   +up-desktop()
     margin-top 0
     margin-bottom 25px
+    width 260px
 
 .button-delete
   margin-left 12px
 
 .icon-pen,
-.icon-trash
+.icon-trash,
+.icon-star
   width 13px
   height 14px
+
+.icon-star
+  display inline-block
+  margin-left 5px
+  color #FF9F1C
