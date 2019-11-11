@@ -1,7 +1,7 @@
-import {Directive, ElementRef, Input, OnInit} from '@angular/core';
+import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 
 @Directive({
-  selector: '[appHighlight]'
+  selector: '[agmHighlight]'
 })
 
 export class HighlightDirective implements OnInit {

@@ -1,26 +1,29 @@
 import { NgModule } from '@angular/core';
 
+import { IconSpriteModule } from 'ng-svg-icon-sprite';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
-
+import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { CoursesModule } from './modules/courses/courses.module';
 
 import { AppComponent } from './app.component';
-import { FilterPipe } from './shared/pipes/filter.pipe';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { FooterComponent } from './shared/components/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FilterPipe
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
     CoreModule,
-    CoursesModule
+    CoursesModule,
+    IconSpriteModule.forRoot({path: 'assets/sprites/sprite.svg'})
   ],
   providers: [],
   bootstrap: [AppComponent]

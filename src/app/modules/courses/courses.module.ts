@@ -10,10 +10,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IconSpriteModule } from 'ng-svg-icon-sprite';
 
-import { DurationPipe } from '../../shared/pipes/duration.pipe';
-import { OrderByPipe } from '../../shared/pipes/order-by.pipe';
+import { DurationPipe } from '../../core/pipes/duration.pipe';
+import { OrderByPipe } from '../../core/pipes/order-by.pipe';
+import { FilterPipe } from '../../core/pipes/filter.pipe';
 
-import { HighlightDirective } from '../../shared/directives/highlight.directive';
+import { HighlightDirective } from '../../core/directives/highlight.directive';
 
 import { CoursesService } from './courses.service';
 
@@ -23,9 +24,9 @@ import { CoursesService } from './courses.service';
     CoursesListComponent,
     CoursesListItemComponent,
     CoursesPageComponent,
+    BreadcrumbsComponent,
     DurationPipe,
     OrderByPipe,
-    BreadcrumbsComponent,
     HighlightDirective
   ],
   imports: [
@@ -33,7 +34,10 @@ import { CoursesService } from './courses.service';
     FormsModule,
     IconSpriteModule.forRoot({path: 'assets/sprites/sprite.svg'})
   ],
-  providers: [CoursesService],
+  providers: [
+    FilterPipe,
+    CoursesService
+  ],
   exports: [
     CoursesPageComponent
   ]

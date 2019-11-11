@@ -13,6 +13,6 @@ export class SearchComponent {
   constructor(private coursesService: CoursesService) { }
 
   findCourse(): void {
-    this.coursesService.setFilterValue(this.searchText);
+    this.coursesService.filterCourses(this.searchText);
   }
 }

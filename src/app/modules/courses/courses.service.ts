@@ -1,20 +1,33 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { ICoursesListItem } from './models/courses-list-item';
+import { FilterPipe } from '../../core/pipes/filter.pipe';
 
 @Injectable()
 
 export class CoursesService {
-  private filterValue = new BehaviorSubject<string>('');
-  public filterState = this.filterValue.asObservable();
+  private coursesListSubject = new Subject<Array<ICoursesListItem>>();
 
-  constructor(private http: HttpClient) { }
+  coursesList$ = new Observable<Array<ICoursesListItem>>();
+  allCourses: Array<ICoursesListItem>;
 
-  getCourses() {
-    return this.http.get('assets/mocks/courses.json');
+  constructor(
+    private http: HttpClient,
+    private filterPipe: FilterPipe
+  ) {
+    this.coursesList$ = this.coursesListSubject.asObservable();
   }
 
-  setFilterValue(value: string) {
-    this.filterValue.next(value);
+  getCourses() {
+    this.http.get('assets/mocks/courses.json').subscribe((data: {coursesList: Array<ICoursesListItem>}) => {
+      this.allCourses = data.coursesList;
+
+      this.coursesListSubject.next(this.allCourses);
+    });
+  }
+
+  filterCourses(filterKey: string) {
+    this.coursesListSubject.next(this.filterPipe.transform(this.allCourses, 'title', filterKey));
   }
 }

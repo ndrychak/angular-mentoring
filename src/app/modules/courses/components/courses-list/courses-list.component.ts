@@ -1,35 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+
 import { CoursesService } from '../../courses.service';
+
 import { ICoursesListItem } from '../../models/courses-list-item';
-import { FilterPipe } from '../../../../shared/pipes/filter.pipe';
 
 @Component({
   selector: 'agm-courses-list',
   templateUrl: './courses-list.component.html',
-  styleUrls: ['./courses-list.component.styl'],
-  providers: [ FilterPipe ]
+  styleUrls: ['./courses-list.component.styl']
 })
 
 export class CoursesListComponent implements OnInit {
-  allCourses: ICoursesListItem[] = [];
-  currentCourses: ICoursesListItem[] = [];
+  currentCourses: Array<ICoursesListItem> = [];
 
-  constructor(
-    private coursesService: CoursesService,
-    private filterPipe: FilterPipe
-  ) { }
+  constructor(private coursesService: CoursesService) { }
 
   ngOnInit() {
-    this.coursesService.getCourses().subscribe((data: {coursesList: Array<ICoursesListItem>}) => {
-      this.allCourses = data.coursesList;
-      this.currentCourses = this.allCourses;
-    });
+    this.coursesService.getCourses();
 
-    this.coursesService.filterState.subscribe(val => this.filterCourses(val));
-  }
-
-  filterCourses(filterKey): void {
-    this.currentCourses = this.filterPipe.transform(this.allCourses, 'title', filterKey);
+    this.coursesService.coursesList$.subscribe(currentCourses => this.currentCourses = currentCourses);
   }
 
   loadMoreCourses(): void {

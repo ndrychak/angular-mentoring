@@ -1,27 +1,24 @@
+import { of } from 'rxjs';
 import { CoursesService } from './courses.service';
 
 describe('CoursesService', () => {
   let coursesService;
-  let filterValueSpy;
 
   beforeEach(() => {
-    const mockHttp = jasmine.createSpyObj(['get']);
+    const mockHttp = jasmine.createSpyObj('mockHttp', ['get']);
+    const mockFilerPipe = jasmine.createSpyObj('mockFilerPipe', ['transform']);
 
-    coursesService = new CoursesService(mockHttp);
+    mockHttp.get.and.callFake(() => {
+      return of([]);
+    });
+
+    coursesService = new CoursesService(mockHttp, mockFilerPipe);
   });
 
   it('should preform request to get courses list', () => {
     coursesService.getCourses();
 
     expect(coursesService.http.get).toHaveBeenCalled();
-  });
-
-  it('should trigger observable event', () => {
-    filterValueSpy = spyOn(coursesService.filterValue, 'next');
-
-    coursesService.setFilterValue('test');
-
-    expect(coursesService.filterValue.next).toHaveBeenCalledWith('test');
   });
 });
 

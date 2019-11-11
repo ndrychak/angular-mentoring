@@ -13,6 +13,7 @@
       true,
       "attribute",
       "app",
+      "agm",
       "camelCase"
     ],
     "component-selector": [
