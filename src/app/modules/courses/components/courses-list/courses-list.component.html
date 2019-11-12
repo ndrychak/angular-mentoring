@@ -1,11 +1,17 @@
-<section class="courses-list">
+<section class="courses-list" *ngIf="currentCourses.length; else noResults">
   <agm-courses-list-item
-    *ngFor="let coursesListItem of coursesList"
+    *ngFor="let coursesListItem of currentCourses | orderBy: 'creationDate'"
     [coursesListItem]="coursesListItem"
     (deletedCourse)="onDeletedCourse($event)">
   </agm-courses-list-item>
 </section>
 
-<button class="courses-load-more" (click)="loadMoreCourses()">
+<ng-template #noResults>
+  <p class="no-results">No data. Feel free to add new course</p>
+</ng-template>
+
+<button *ngIf="currentCourses.length"
+        class="panel courses-load-more"
+        (click)="loadMoreCourses()">
   <span class="courses-load-more-text">load more</span>
 </button>
