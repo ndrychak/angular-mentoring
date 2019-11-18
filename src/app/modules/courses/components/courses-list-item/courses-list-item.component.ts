@@ -1,5 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+
 import { ICoursesListItem } from '../../models/courses-list-item';
+
+import { DeleteCoursePopupComponent } from '../delete-course-popup/delete-course-popup.component';
+
+import { CoursesService } from '../../courses.service';
 
 @Component({
   selector: 'agm-courses-list-item',
@@ -9,15 +15,33 @@ import { ICoursesListItem } from '../../models/courses-list-item';
 
 export class CoursesListItemComponent {
   @Input() coursesListItem: ICoursesListItem;
-  @Output() deletedCourse = new EventEmitter<number>();
 
-  constructor() { }
+  constructor(
+    private coursesService: CoursesService,
+    private dialog: MatDialog
+  ) { }
 
   editCourse(): void {
-    console.log('edit course');
+    this.coursesService.updateItem(this.coursesListItem.id);
   }
 
   deleteButtonHandler(): void {
-    this.deletedCourse.emit(this.coursesListItem.id);
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.width = '395px';
+    dialogConfig.minHeight = 210;
+    dialogConfig.panelClass = 'agm-popup';
+    dialogConfig.data = {
+      id: this.coursesListItem.id,
+      title: this.coursesListItem.title
+    };
+
+    const dialogRef = this.dialog.open(DeleteCoursePopupComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      if (data && data.deleteCourseId) {
+        this.coursesService.removeItem(data.deleteCourseId);
+      }
+    });
   }
 }

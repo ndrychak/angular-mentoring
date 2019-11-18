@@ -2,10 +2,14 @@ import { CoursesListItemComponent } from './courses-list-item.component';
 
 describe('CoursesListItemComponent', () => {
   let component;
-  let deletedCourseSpy;
+  let mockCoursesService;
+  let dialogMock;
 
   beforeEach(() => {
-    component = new CoursesListItemComponent();
+    mockCoursesService = jasmine.createSpyObj('mockCoursesService', ['updateItem']);
+    dialogMock = jasmine.createSpyObj('dialogMock', ['open']);
+
+    component = new CoursesListItemComponent(mockCoursesService, dialogMock);
 
     component.coursesListItem = {
       id: 42,
@@ -21,11 +25,9 @@ describe('CoursesListItemComponent', () => {
     component = null;
   });
 
-  it('should call emitter with number', () => {
-    deletedCourseSpy = spyOn(component.deletedCourse, 'emit');
+  it('should use coursesService to update item', () => {
+    component.editCourse();
 
-    component.deleteButtonHandler();
-
-    expect(component.deletedCourse.emit).toHaveBeenCalledWith(42);
+    expect(mockCoursesService.updateItem).toHaveBeenCalledWith(42);
   });
 });

@@ -5,6 +5,11 @@
   display flex
   position relative
 
+.search-input-wrapper
+  flex-grow 1
+  +up-mobile()
+    flex-grow 0
+
 .search-icon
   transform rotate(90deg)
   width 21px
@@ -16,7 +21,6 @@
 
 .search-input
   width 100%
-  max-width 360px
   height 48px
   padding 12px 42px
   border-radius 3px
@@ -24,6 +28,8 @@
   background-color map-get(colors, 'white')
   font 14px/1.71 font-sans-pro
   color map-get(colors, 'slate-grey')
+  +up-mobile()
+    width 360px
 
 .search-submit
   width 100px

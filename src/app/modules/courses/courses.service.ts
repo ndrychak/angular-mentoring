@@ -19,12 +19,32 @@ export class CoursesService {
     this.coursesList$ = this.coursesListSubject.asObservable();
   }
 
-  getCourses() {
+  getList() {
     this.http.get('assets/mocks/courses.json').subscribe((data: {coursesList: Array<ICoursesListItem>}) => {
       this.allCourses = data.coursesList;
 
       this.coursesListSubject.next(this.allCourses);
     });
+  }
+
+  createItem() {
+    console.log('CoursesService: createItem');
+  }
+
+  updateItem(courseId: number): void {
+    console.log(`CoursesService: updateItem ${courseId}`);
+  }
+
+  removeItem(courseId: number): void {
+    this.allCourses = this.allCourses.filter(item => {
+      return item.id !== courseId;
+    });
+
+    this.coursesListSubject.next(this.allCourses);
+  }
+
+  getItemById(courseId: number) {
+    console.log(`CoursesService: getItemById ${courseId}`);
   }
 
   filterCourses(filterKey: string) {

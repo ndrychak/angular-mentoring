@@ -1,0 +1,93 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+$green-palette: (
+  50: #f3f8e7,
+  100: #e1efc3,
+  200: #cde49b,
+  300: #b9d973,
+  400: #aad055,
+  500: #9bc837,
+  600: #93c231,
+  700: #89bb2a,
+  800: #7fb423,
+  900: #6da716,
+  A100: #efffda,
+  A200: #daffa7,
+  A400: #c4ff74,
+  A700: #b9ff5b,
+  contrast: (
+    50: #FFF,
+    100: #FFF,
+    200: #FFF,
+    300: #FFF,
+    400: #FFF,
+    500: #FFF,
+    600: #FFF,
+    700: #FFF,
+    800: #FFF,
+    900: #FFF,
+    A100: #FFF,
+    A200: #FFF,
+    A400: #FFF,
+    A700: #FFF,
+  )
+);
+
+$grey-palette: (
+  50: #fafbfc,
+  100: #f4f4f7,
+  200: #ecedf1,
+  300: #e4e6eb,
+  400: #dfe0e7,
+  500: #d9dbe3,
+  600: #d5d7e0,
+  700: #cfd2dc,
+  800: #cacdd8,
+  900: #c0c4d0,
+  A100: #ffffff,
+  A200: #ffffff,
+  A400: #ffffff,
+  A700: #ffffff,
+  contrast: (
+    50: #fafbfc,
+    100: #f4f4f7,
+    200: #ecedf1,
+    300: #e4e6eb,
+    400: #dfe0e7,
+    500: #d9dbe3,
+    600: #d5d7e0,
+    700: #cfd2dc,
+    800: #cacdd8,
+    900: #c0c4d0,
+    A100: #ffffff,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff,
+  )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$angular-mentoring-primary: mat-palette($green-palette);
+$angular-mentoring-accent: mat-palette($grey-palette, 500, 500, 500);
+
+// The warn palette is optional (defaults to red).
+$angular-mentoring-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$angular-mentoring-theme: mat-light-theme($angular-mentoring-primary, $angular-mentoring-accent, $angular-mentoring-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($angular-mentoring-theme);

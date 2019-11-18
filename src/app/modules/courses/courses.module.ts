@@ -4,6 +4,7 @@ import { BreadcrumbsComponent } from '../../shared/components/breadcrumbs/breadc
 import { SearchComponent } from './components/search/search.component';
 import { CoursesListComponent } from './components/courses-list/courses-list.component';
 import { CoursesListItemComponent } from './components/courses-list-item/courses-list-item.component';
+import { DeleteCoursePopupComponent } from './components/delete-course-popup/delete-course-popup.component';
 import { CoursesPageComponent } from './pages/courses-page.component';
 
 import { CommonModule } from '@angular/common';
@@ -18,6 +19,8 @@ import { HighlightDirective } from '../../core/directives/highlight.directive';
 
 import { CoursesService } from './courses.service';
 
+import { MatDialogModule } from '@angular/material';
+
 @NgModule({
   declarations: [
     SearchComponent,
@@ -27,19 +30,24 @@ import { CoursesService } from './courses.service';
     BreadcrumbsComponent,
     DurationPipe,
     OrderByPipe,
-    HighlightDirective
+    HighlightDirective,
+    DeleteCoursePopupComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
-    IconSpriteModule.forRoot({path: 'assets/sprites/sprite.svg'})
+    IconSpriteModule.forRoot({path: 'assets/sprites/sprite.svg'}),
+    MatDialogModule
   ],
   providers: [
     FilterPipe,
     CoursesService
   ],
   exports: [
-    CoursesPageComponent
+    CoursesPageComponent,
+  ],
+  entryComponents: [
+    DeleteCoursePopupComponent
   ]
 })
 

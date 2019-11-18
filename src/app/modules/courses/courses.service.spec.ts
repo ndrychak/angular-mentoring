@@ -16,7 +16,7 @@ describe('CoursesService', () => {
   });
 
   it('should preform request to get courses list', () => {
-    coursesService.getCourses();
+    coursesService.getList();
 
     expect(coursesService.http.get).toHaveBeenCalled();
   });

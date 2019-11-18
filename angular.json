@@ -28,6 +28,7 @@
               "src/assets"
             ],
             "styles": [
+              "src/custom-theme.scss",
               "src/assets/styles/styles-reset.styl",
               "src/assets/styles/styles.styl"
             ],
@@ -137,6 +138,7 @@
           }
         }
       }
-    }},
+    }
+  },
   "defaultProject": "angular-mentoring"
 }

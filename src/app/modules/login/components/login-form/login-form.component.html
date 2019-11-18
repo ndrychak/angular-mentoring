@@ -1,0 +1,26 @@
+<form #loginForm="ngForm">
+  <p class="form-title">Login</p>
+
+  <div class="form-item">
+    <label for="userEmail" class="form-label">
+      E-mail:
+      <span class="form-required">*required</span>
+    </label>
+    <input id="userEmail" type="email" class="form-input" name="email" ngModel required />
+  </div>
+
+  <div class="form-item">
+    <label for="userPassword" class="form-label">
+      Password:
+      <span class="form-required">*required</span>
+    </label>
+    <input id="userPassword" type="password" class="form-input" name="password" ngModel required />
+  </div>
+
+  <div class="login-actions">
+    <a href="#" class="forgot-pass-link">Forgot password?</a>
+    <button class="button-style-primary" (click)="loginUser(loginForm)" [disabled]="loginForm.invalid">
+      Login
+    </button>
+  </div>
+</form>
