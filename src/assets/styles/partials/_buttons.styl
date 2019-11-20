@@ -23,3 +23,30 @@
     top 0
     bottom 0
     margin auto
+
+/* form buttons */
+.button-style-primary,
+.button-style-cancel
+  font 14px/18px font-sans-pro
+  padding 8px 18px
+  box-shadow none
+  border-radius 3px
+  margin-left 18px
+  transition background 0.3s ease
+
+.button-style-primary
+  background map-get(colors, 'sick-green')
+  color map-get(colors, 'white')
+  &[disabled]
+    background map-get(colors, 'mishka')
+    color: map-get(colors, 'steel')
+    cursor default
+  &:hover:not([disabled])
+    background map-get(colors, 'sushi')
+
+.button-style-cancel
+  font-weight 600
+  color map-get(colors, 'slate-grey')
+  background map-get(colors, 'pale-grey')
+  &:hover
+    background map-get(colors, 'mishka')

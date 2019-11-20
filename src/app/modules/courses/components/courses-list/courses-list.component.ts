@@ -16,16 +16,12 @@ export class CoursesListComponent implements OnInit {
   constructor(private coursesService: CoursesService) { }
 
   ngOnInit() {
-    this.coursesService.getCourses();
+    this.coursesService.getList();
 
     this.coursesService.coursesList$.subscribe(currentCourses => this.currentCourses = currentCourses);
   }
 
   loadMoreCourses(): void {
     console.log('load more courses');
-  }
-
-  onDeletedCourse(courseId): void {
-    console.log(`delete: courseId = ${courseId}`);
   }
 }

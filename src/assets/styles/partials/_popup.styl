@@ -1,0 +1,37 @@
+.agm-popup .mat-dialog-container
+  padding 0
+
+.agm-popup .mat-dialog-title
+  margin 0
+  padding 15px 45px 15px 24px
+  font 600 18px/24px font-sans-pro
+  background map-get(colors, 'pale-grey')
+  color map-get(colors, 'slate-grey')
+  position relative
+
+.agm-popup .agm-dialog-close
+  position absolute
+  top 8px
+  right 15px
+  background transparent
+
+.agm-popup .icon-close
+  display flex
+  width 24px
+  height 24px
+  color map-get(colors, 'silver')
+  transition color 0.3s ease
+  &:hover
+    color map-get(colors, 'steel')
+
+.agm-popup .mat-dialog-content
+  margin 0
+  padding 24px
+  font 14px/24px font-sans-pro
+  color map-get(colors, 'slate-grey')
+
+.agm-popup .mat-dialog-actions
+  padding 0 24px
+  min-height auto
+  display flex
+  justify-content flex-end

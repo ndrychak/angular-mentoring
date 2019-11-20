@@ -1,22 +1,22 @@
 import { SearchComponent } from './search.component';
 
 describe('SearchComponent', () => {
-  let component;
-  let mockCoursesService;
+  let sut;
+  let coursesService;
 
   beforeEach(() => {
-    mockCoursesService = jasmine.createSpyObj(['setFilterValue']);
+    coursesService = {
+      filterCourses: jasmine.createSpy('filterCourses')
+    };
 
-    component = new SearchComponent(mockCoursesService);
+    sut = new SearchComponent(coursesService);
   });
 
-  afterEach(() => {
-    component = null;
-  });
+  describe('#filterCourses', () => {
+    it('should use coursesService to trigger observable event', () => {
+      sut.findCourse();
 
-  it('should use coursesService to trigger observable event', () => {
-    component.findCourse();
-
-    expect(mockCoursesService.setFilterValue).toHaveBeenCalled();
+      expect(coursesService.filterCourses).toHaveBeenCalled();
+    });
   });
 });

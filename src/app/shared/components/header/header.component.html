@@ -4,15 +4,15 @@
       <img class="site-logo" src="assets/logo/logo.png" srcset="assets/logo/logo@2x.png 2x" alt="Video Course">
     </a>
 
-    <nav class="menu">
+    <nav class="menu" *ngIf="isAuthenticatedUser$ | async">
       <div class="menu-item">
         <span class="user-login">
           <svg-icon-sprite [src]="'user'" [class]="'icon icon-user'"></svg-icon-sprite>
-          User login
+          Hello, {{username}}
         </span>
       </div>
       <div class="menu-item">
-        <button class="log-off">
+        <button class="log-off" (click)="logout()">
           <svg-icon-sprite [src]="'exit'" [class]="'icon icon-exit'"></svg-icon-sprite>
           Log off
         </button>

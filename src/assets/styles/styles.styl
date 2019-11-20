@@ -1,10 +1,15 @@
 @import "_variables.styl"
 @import "_mixins.styl"
 @import "_buttons.styl"
+@import "_popup.styl"
+@import "_form.styl"
 
 ::placeholder
   color map-get(colors, 'silver')
   opacity 1
+
+html, body
+  height 100%
 
 body
   background map-get(colors, 'pale-grey')
@@ -12,11 +17,13 @@ body
 .page-container
   max-width 1140px
   width 100%
-  padding 0 15px
+  padding-left 15px
+  padding-right 15px
   margin 0 auto
 
 .page-content-wrapper
-  margin-bottom 50px
+  padding-top 24px
+  padding-bottom 24px
 
 .panel
   border-radius 6px

@@ -1,13 +1,31 @@
 import { CoursesListItemComponent } from './courses-list-item.component';
+import { of } from 'rxjs';
 
 describe('CoursesListItemComponent', () => {
-  let component;
-  let deletedCourseSpy;
+  let sut;
+  let coursesService;
+  let dialog;
+
+  const deleteCourseId = 3;
 
   beforeEach(() => {
-    component = new CoursesListItemComponent();
+    coursesService = {
+      updateItem: jasmine.createSpy('updateItem'),
+      removeItem: jasmine.createSpy('removeItem'),
+    };
 
-    component.coursesListItem = {
+    dialog = {
+      open: jasmine.createSpy('open').and
+        .returnValue({
+          afterClosed: () => {
+            return of({deleteCourseId});
+          }
+        })
+    };
+
+    sut = new CoursesListItemComponent(coursesService, dialog);
+
+    sut.coursesListItem = {
       id: 42,
       title: 'test title',
       creationDate: '2019-08-15T13:45:30',
@@ -17,15 +35,25 @@ describe('CoursesListItemComponent', () => {
     };
   });
 
-  afterEach(() => {
-    component = null;
+  describe('#editCourse', () => {
+    it('should use coursesService to update item', () => {
+      sut.editCourse();
+
+      expect(coursesService.updateItem).toHaveBeenCalledWith(42);
+    });
   });
 
-  it('should call emitter with number', () => {
-    deletedCourseSpy = spyOn(component.deletedCourse, 'emit');
+  describe('#deleteButtonHandler', () => {
+    it('should open popup', () => {
+      sut.deleteButtonHandler();
 
-    component.deleteButtonHandler();
+      expect(dialog.open).toHaveBeenCalled();
+    });
 
-    expect(component.deletedCourse.emit).toHaveBeenCalledWith(42);
+    it('should remove item', () => {
+      sut.deleteButtonHandler();
+
+      expect(coursesService.removeItem).toHaveBeenCalledWith(deleteCourseId);
+    });
   });
 });

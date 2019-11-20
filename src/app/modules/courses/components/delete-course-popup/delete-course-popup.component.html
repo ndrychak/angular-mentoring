@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>
+  Delete course?
+
+  <button class="agm-dialog-close" (click)="close()">
+    <svg-icon-sprite [src]="'close'" [class]="'icon icon-close'"></svg-icon-sprite>
+  </button>
+</h2>
+
+<mat-dialog-content>
+  Are you sure you want to delete<br/>
+  {{title}}?
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button class="button-style-cancel" (click)="close()">Cancel</button>
+  <button class="button-style-primary" (click)="delete()">Yes, delete</button>
+</mat-dialog-actions>
