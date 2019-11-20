@@ -11,11 +11,11 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IconSpriteModule } from 'ng-svg-icon-sprite';
 
-import { DurationPipe } from '../../core/pipes/duration.pipe';
-import { OrderByPipe } from '../../core/pipes/order-by.pipe';
-import { FilterPipe } from '../../core/pipes/filter.pipe';
+import { DurationPipe } from '../../core/pipes/duration/duration.pipe';
+import { OrderByPipe } from '../../core/pipes/order-by/order-by.pipe';
+import { FilterPipe } from '../../core/pipes/filter/filter.pipe';
 
-import { HighlightDirective } from '../../core/directives/highlight.directive';
+import { HighlightDirective } from '../../core/directives/highlight/highlight.directive';
 
 import { CoursesService } from './courses.service';
 
@@ -28,10 +28,11 @@ import { MatDialogModule } from '@angular/material';
     CoursesListItemComponent,
     CoursesPageComponent,
     BreadcrumbsComponent,
+    DeleteCoursePopupComponent,
     DurationPipe,
     OrderByPipe,
-    HighlightDirective,
-    DeleteCoursePopupComponent
+    FilterPipe,
+    HighlightDirective
   ],
   imports: [
     CommonModule,

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ICoursesListItem } from './models/courses-list-item';
-import { FilterPipe } from '../../core/pipes/filter.pipe';
+import { FilterPipe } from '../../core/pipes/filter/filter.pipe';
 
 @Injectable()
 

@@ -1,43 +1,52 @@
 import { AuthService } from './authentication.service';
 
 describe('AuthService', () => {
-  let authService;
+  let sut;
+  let router;
 
   beforeEach(() => {
-    const mockRouter = jasmine.createSpyObj('mockRouter', ['navigateByUrl']);
+    router = {
+      navigateByUrl: jasmine.createSpy('navigateByUrl')
+    };
 
-    authService = new AuthService(mockRouter);
+    sut = new AuthService(router);
   });
 
   afterEach(() => {
-    authService = null;
-
     localStorage.removeItem('userInfo');
     localStorage.removeItem('jwtToken');
   });
 
-  it('should return false when user not authenticated', () => {
-    expect(authService.isAuthenticated()).toEqual(false);
+  describe('#login', () => {
+    it('should set localstorage userInfo', () => {
+      sut.login({email: 'test', password: 'testPass'});
+
+      expect(localStorage.getItem('userInfo')).toEqual('{"email":"test","password":"testPass"}');
+    });
   });
 
-  it('should return object with email and password', () => {
-    localStorage.setItem('userInfo', '{"email": "test", "password": "testPass"}');
+  describe('#logout', () => {
+    it('should remove localstorage userInfo', () => {
+      localStorage.setItem('userInfo', '{"email": "test", "password": "testPass"}');
 
-    expect(authService.getUserInfo()).toEqual({email: 'test', password: 'testPass'});
+      sut.logout();
+
+      expect(localStorage.getItem('userInfo')).toEqual(null);
+    });
   });
 
-  it('should remove localstorage userInfo', () => {
-    localStorage.setItem('userInfo', '{"email": "test", "password": "testPass"}');
-
-    authService.logout();
-
-    expect(localStorage.getItem('userInfo')).toEqual(null);
+  describe('#isAuthenticated', () => {
+    it('should return false when user not authenticated', () => {
+      expect(sut.isAuthenticated()).toEqual(false);
+    });
   });
 
-  it('should set localstorage userInfo', () => {
-    authService.login({email: 'test', password: 'testPass'});
+  describe('#getUserInfo', () => {
+    it('should return object with email and password', () => {
+      localStorage.setItem('userInfo', '{"email": "test", "password": "testPass"}');
 
-    expect(localStorage.getItem('userInfo')).toEqual('{"email":"test","password":"testPass"}');
+      expect(sut.getUserInfo()).toEqual({email: 'test', password: 'testPass'});
+    });
   });
 });
 

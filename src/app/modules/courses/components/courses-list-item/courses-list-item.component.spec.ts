@@ -1,17 +1,31 @@
 import { CoursesListItemComponent } from './courses-list-item.component';
+import { of } from 'rxjs';
 
 describe('CoursesListItemComponent', () => {
-  let component;
-  let mockCoursesService;
-  let dialogMock;
+  let sut;
+  let coursesService;
+  let dialog;
+
+  const deleteCourseId = 3;
 
   beforeEach(() => {
-    mockCoursesService = jasmine.createSpyObj('mockCoursesService', ['updateItem']);
-    dialogMock = jasmine.createSpyObj('dialogMock', ['open']);
+    coursesService = {
+      updateItem: jasmine.createSpy('updateItem'),
+      removeItem: jasmine.createSpy('removeItem'),
+    };
 
-    component = new CoursesListItemComponent(mockCoursesService, dialogMock);
+    dialog = {
+      open: jasmine.createSpy('open').and
+        .returnValue({
+          afterClosed: () => {
+            return of({deleteCourseId});
+          }
+        })
+    };
 
-    component.coursesListItem = {
+    sut = new CoursesListItemComponent(coursesService, dialog);
+
+    sut.coursesListItem = {
       id: 42,
       title: 'test title',
       creationDate: '2019-08-15T13:45:30',
@@ -21,13 +35,25 @@ describe('CoursesListItemComponent', () => {
     };
   });
 
-  afterEach(() => {
-    component = null;
+  describe('#editCourse', () => {
+    it('should use coursesService to update item', () => {
+      sut.editCourse();
+
+      expect(coursesService.updateItem).toHaveBeenCalledWith(42);
+    });
   });
 
-  it('should use coursesService to update item', () => {
-    component.editCourse();
+  describe('#deleteButtonHandler', () => {
+    it('should open popup', () => {
+      sut.deleteButtonHandler();
 
-    expect(mockCoursesService.updateItem).toHaveBeenCalledWith(42);
+      expect(dialog.open).toHaveBeenCalled();
+    });
+
+    it('should remove item', () => {
+      sut.deleteButtonHandler();
+
+      expect(coursesService.removeItem).toHaveBeenCalledWith(deleteCourseId);
+    });
   });
 });
