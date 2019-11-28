@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
-import { CoursesPageComponent } from './modules/courses/pages/courses-page/courses-page.component';
-import { CoursesDetailsComponent } from './modules/courses/pages/courses-details/courses-details.component';
-import { LoginPageComponent } from './modules/login/pages/login-page.component';
+import {CoursesPageComponent} from './modules/courses/courses-list/pages/courses-page.component';
+import {AddCoursePageComponent} from './modules/courses/add-course/pages/add-course-page.component';
+import {LoginPageComponent} from './modules/login/pages/login-page.component';
 
 const routes: Routes = [
   {
@@ -19,10 +19,10 @@ const routes: Routes = [
       },
       {
         path: 'add',
-        component: CoursesDetailsComponent
+        component: AddCoursePageComponent
       }, {
         path: 'edit/:id',
-        component: CoursesDetailsComponent
+        component: AddCoursePageComponent
       }
     ]
   }, {

@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {Observable} from 'rxjs';
 
-import { CoursesService } from '../../courses.service';
+import {ICoursesListItem} from '../../models/courses-list-item';
 
-import { ICoursesListItem } from '../../models/courses-list-item';
-import { MatDialog, MatDialogConfig } from '@angular/material';
+import {CoursesService} from '../../../courses.service';
 
-import { DeleteCoursePopupComponent } from '../delete-course-popup/delete-course-popup.component';
+import {DeleteCoursePopupComponent} from '../delete-course-popup/delete-course-popup.component';
 
 @Component({
   selector: 'agm-courses-list',
   templateUrl: './courses-list.component.html',
-  styleUrls: ['./courses-list.component.styl']
+  styleUrls: ['./courses-list.component.styl'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class CoursesListComponent implements OnInit {
-  currentCourses: Array<ICoursesListItem> = [];
+  currentCourses$: Observable<ICoursesListItem[]>;
 
   constructor(
     private coursesService: CoursesService,
@@ -26,11 +28,7 @@ export class CoursesListComponent implements OnInit {
       this.coursesService.storeList(data);
     });
 
-    this.coursesService.coursesList$.subscribe(currentCourses => this.currentCourses = currentCourses);
-  }
-
-  loadMoreCourses(): void {
-    console.log('load more courses');
+    this.currentCourses$ = this.coursesService.coursesList$;
   }
 
   onDeletedCourse(data: ICoursesListItem): void {

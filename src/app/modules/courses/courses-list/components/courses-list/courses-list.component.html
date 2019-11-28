@@ -1,4 +1,4 @@
-<section class="courses-list" *ngIf="currentCourses.length; else noResults">
+<section class="courses-list" *ngIf="currentCourses$ | async as currentCourses; else noResults">
   <agm-courses-list-item
     *ngFor="let coursesListItem of currentCourses | orderBy: 'creationDate'"
     [coursesListItem]="coursesListItem"
@@ -9,9 +9,3 @@
 <ng-template #noResults>
   <p class="no-results">No data. Feel free to add new course</p>
 </ng-template>
-
-<button *ngIf="currentCourses.length"
-        class="panel courses-load-more"
-        (click)="loadMoreCourses()">
-  <span class="courses-load-more-text">load more</span>
-</button>

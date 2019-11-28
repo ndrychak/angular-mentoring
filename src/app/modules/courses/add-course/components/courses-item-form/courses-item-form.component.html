@@ -18,14 +18,14 @@
     </textarea>
   </div>
 
-  <agm-course-duration-input
+  <agm-duration-input
     [duration]="courseItem?.duration"
     (durationValue)="setDuration($event)">
-  </agm-course-duration-input>
-  <agm-course-date-input
+  </agm-duration-input>
+  <agm-date-input
     [date]="courseItem?.creationDate"
     (dateValue)="setCreationDate($event)"
-  ></agm-course-date-input>
+  ></agm-date-input>
 
   <div class="form-buttons">
     <a class="button-style-cancel" routerLink="/courses">

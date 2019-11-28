@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 
-import { ICoursesListItem } from '../../models/courses-list-item';
+import {ICoursesListItem} from '../../models/courses-list-item';
 
-import { CoursesService } from '../../courses.service';
+import {CoursesService} from '../../../courses.service';
 
 @Component({
   selector: 'agm-courses-list-item',

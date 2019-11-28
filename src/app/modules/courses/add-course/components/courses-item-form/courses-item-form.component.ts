@@ -1,17 +1,19 @@
-import { Component, Input } from '@angular/core';
-import { ICoursesListItem } from '../../models/courses-list-item';
-import { CoursesService } from '../../courses.service';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ICoursesListItem} from '../../../courses-list/models/courses-list-item';
+import {INewCourse} from '../../models/new-course';
+import {CoursesService} from '../../../courses.service';
 
 @Component({
   selector: 'agm-courses-item-form',
   templateUrl: './courses-item-form.component.html',
-  styleUrls: ['./courses-item-form.component.styl']
+  styleUrls: ['./courses-item-form.component.styl'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class CoursesItemFormComponent {
   @Input() courseItem: ICoursesListItem;
 
-  private form = {
+  private form: INewCourse = {
     title: '',
     description: '',
     creationDate: '',

@@ -1,9 +1,10 @@
-import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import {ChangeDetectionStrategy, Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 @Component({
   selector: 'agm-delete-course-popup',
-  templateUrl: './delete-course-popup.component.html'
+  templateUrl: './delete-course-popup.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class DeleteCoursePopupComponent {
