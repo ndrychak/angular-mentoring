@@ -1,0 +1,13 @@
+<div class="form-item small">
+  <label for="courseDate" class="form-label">
+    Date:
+    <span class="form-required">*required</span>
+  </label>
+  <input id="courseDate"
+         type="date"
+         class="form-input"
+         name="duration"
+         [ngModel]="date | date:'yyyy-MM-dd'"
+         (ngModelChange)="modelChanged($event)"
+         required />
+</div>

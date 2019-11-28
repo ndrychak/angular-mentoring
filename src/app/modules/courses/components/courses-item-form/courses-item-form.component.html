@@ -1,0 +1,38 @@
+<form class="form panel" #courseForm="ngForm">
+  <h1 class="form-title">New course</h1>
+
+  <div class="form-item">
+    <label for="courseTitle" class="form-label">
+      Title:
+      <span class="form-required">*required</span>
+    </label>
+    <input id="courseTitle" type="text" class="form-input" name="title" [ngModel]="courseItem?.title" required />
+  </div>
+
+  <div class="form-item">
+    <label for="courseInfo" class="form-label">
+      Description:
+      <span class="form-required">*required</span>
+    </label>
+    <textarea id="courseInfo" class="form-input" name="description" [ngModel]="courseItem?.description" required>
+    </textarea>
+  </div>
+
+  <agm-course-duration-input
+    [duration]="courseItem?.duration"
+    (durationValue)="setDuration($event)">
+  </agm-course-duration-input>
+  <agm-course-date-input
+    [date]="courseItem?.creationDate"
+    (dateValue)="setCreationDate($event)"
+  ></agm-course-date-input>
+
+  <div class="form-buttons">
+    <a class="button-style-cancel" routerLink="/courses">
+      Cancel
+    </a>
+    <button class="button-style-primary" (click)="save(courseForm)" [disabled]="courseForm.invalid">
+      Save
+    </button>
+  </div>
+</form>

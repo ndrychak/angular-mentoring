@@ -1,0 +1,15 @@
+<div class="form-item small">
+  <label for="courseDuration" class="form-label">
+    Duration:
+    <span class="form-required">*required</span>
+  </label>
+  <input id="courseDuration"
+         type="number"
+         class="form-input"
+         name="duration"
+         min="1"
+         [(ngModel)]="duration"
+         (ngModelChange)="modelChanged($event)"
+         required />
+  <span class="duration-value">{{duration | duration}}</span>
+</div>

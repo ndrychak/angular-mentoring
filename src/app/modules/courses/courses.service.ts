@@ -7,10 +7,10 @@ import { FilterPipe } from '../../core/pipes/filter/filter.pipe';
 @Injectable()
 
 export class CoursesService {
-  private coursesListSubject = new Subject<Array<ICoursesListItem>>();
+  private coursesListSubject = new Subject<ICoursesListItem[]>();
+  private allCourses: ICoursesListItem[];
 
-  coursesList$ = new Observable<Array<ICoursesListItem>>();
-  allCourses: Array<ICoursesListItem>;
+  coursesList$ = new Observable<ICoursesListItem[]>();
 
   constructor(
     private http: HttpClient,
@@ -19,16 +19,29 @@ export class CoursesService {
     this.coursesList$ = this.coursesListSubject.asObservable();
   }
 
-  getList() {
-    this.http.get('assets/mocks/courses.json').subscribe((data: {coursesList: Array<ICoursesListItem>}) => {
-      this.allCourses = data.coursesList;
-
-      this.coursesListSubject.next(this.allCourses);
-    });
+  getList(): Observable<ICoursesListItem[]> {
+    return this.http.get<ICoursesListItem[]>('assets/mocks/courses.json');
   }
 
-  createItem() {
-    console.log('CoursesService: createItem');
+  storeList(data) {
+    this.allCourses = data;
+
+    this.coursesListSubject.next(this.allCourses);
+  }
+
+  createItem(data: {
+    title: string,
+    description: string,
+    creationDate: string,
+    duration: number
+  }) {
+    console.log('CoursesService: createItem', data);
+  }
+
+  getItemById(coursesList, courseId) {
+    return coursesList.filter(item => {
+      return item.id === courseId;
+    })[0];
   }
 
   updateItem(courseId: number): void {
@@ -41,10 +54,6 @@ export class CoursesService {
     });
 
     this.coursesListSubject.next(this.allCourses);
-  }
-
-  getItemById(courseId: number) {
-    console.log(`CoursesService: getItemById ${courseId}`);
   }
 
   filterCourses(filterKey: string) {

@@ -3,10 +3,10 @@
 <div class="page-container page-content-wrapper">
   <agm-search></agm-search>
   <div class="add-course">
-    <button class="button button-icon button-large button-add-course" (click)="addCourse()">
+    <a class="button button-icon button-large button-add-course" routerLink="/courses/add">
       <svg-icon-sprite [src]="'plus'" [class]="'icon icon-plus'"></svg-icon-sprite>
       Add course
-    </button>
+    </a>
   </div>
   <agm-courses-list></agm-courses-list>
 </div>

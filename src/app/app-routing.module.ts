@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CoursesPageComponent } from './modules/courses/pages/courses-page.component';
+import { CoursesPageComponent } from './modules/courses/pages/courses-page/courses-page.component';
+import { CoursesDetailsComponent } from './modules/courses/pages/courses-details/courses-details.component';
 import { LoginPageComponent } from './modules/login/pages/login-page.component';
 
 const routes: Routes = [
@@ -11,7 +12,19 @@ const routes: Routes = [
     pathMatch: 'full'
   }, {
     path: 'courses',
-    component: CoursesPageComponent
+    children: [
+      {
+        path: '',
+        component: CoursesPageComponent
+      },
+      {
+        path: 'add',
+        component: CoursesDetailsComponent
+      }, {
+        path: 'edit/:id',
+        component: CoursesDetailsComponent
+      }
+    ]
   }, {
     path: 'login',
     component: LoginPageComponent
