@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
-import { AuthService } from '../../../core/services/authentication/authentication.service';
+import {AuthService} from '../../../core/services/authentication/authentication.service';
 
 @Component({
   selector: 'agm-login-page',
   templateUrl: './login-page.component.html',
-  styleUrls: ['./login-page.component.styl']
+  styleUrls: ['./login-page.component.styl'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class LoginPageComponent implements OnInit {

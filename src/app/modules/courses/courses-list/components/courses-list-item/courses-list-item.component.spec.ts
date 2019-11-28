@@ -1,12 +1,8 @@
 import { CoursesListItemComponent } from './courses-list-item.component';
-import { of } from 'rxjs';
 
 describe('CoursesListItemComponent', () => {
   let sut;
   let coursesService;
-  let dialog;
-
-  const deleteCourseId = 3;
 
   beforeEach(() => {
     coursesService = {
@@ -14,16 +10,11 @@ describe('CoursesListItemComponent', () => {
       removeItem: jasmine.createSpy('removeItem'),
     };
 
-    dialog = {
-      open: jasmine.createSpy('open').and
-        .returnValue({
-          afterClosed: () => {
-            return of({deleteCourseId});
-          }
-        })
-    };
+    sut = new CoursesListItemComponent(coursesService);
 
-    sut = new CoursesListItemComponent(coursesService, dialog);
+    sut.deletedCourse = {
+      emit: jasmine.createSpy('emit'),
+    };
 
     sut.coursesListItem = {
       id: 42,
@@ -44,16 +35,10 @@ describe('CoursesListItemComponent', () => {
   });
 
   describe('#deleteButtonHandler', () => {
-    it('should open popup', () => {
-      sut.deleteButtonHandler();
-
-      expect(dialog.open).toHaveBeenCalled();
-    });
-
     it('should remove item', () => {
       sut.deleteButtonHandler();
 
-      expect(coursesService.removeItem).toHaveBeenCalledWith(deleteCourseId);
+      expect(sut.deletedCourse.emit).toHaveBeenCalledWith(sut.coursesListItem);
     });
   });
 });

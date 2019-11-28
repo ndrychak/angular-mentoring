@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
 
-import { AuthService } from '../../../core/services/authentication/authentication.service';
+import {AuthService} from '../../../core/services/authentication/authentication.service';
 
 @Component({
   selector: 'agm-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.styl']
+  styleUrls: ['./header.component.styl'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class HeaderComponent implements OnInit {

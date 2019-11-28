@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
-import { CoursesService } from '../courses.service';
-import { AuthService } from '../../../core/services/authentication/authentication.service';
+import {CoursesService} from '../../courses.service';
+import {AuthService} from '../../../../core/services/authentication/authentication.service';
 
 @Component({
   selector: 'agm-courses-page',
   templateUrl: './courses-page.component.html',
-  styleUrls: ['./courses-page.component.styl']
+  styleUrls: ['./courses-page.component.styl'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class CoursesPageComponent implements OnInit {
@@ -22,9 +23,5 @@ export class CoursesPageComponent implements OnInit {
     if (!this.authService.isAuthenticated()) {
       this.router.navigateByUrl('/login');
     }
-  }
-
-  addCourse() {
-    this.coursesService.createItem();
   }
 }

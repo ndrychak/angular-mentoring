@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
   selector: 'agm-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
-  styleUrls: ['./breadcrumbs.component.styl']
+  styleUrls: ['./breadcrumbs.component.styl'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class BreadcrumbsComponent {}
