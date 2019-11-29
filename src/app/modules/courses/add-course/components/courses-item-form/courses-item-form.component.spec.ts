@@ -3,13 +3,18 @@ import { CoursesItemFormComponent } from './courses-item-form.component';
 describe('CoursesItemFormComponent', () => {
   let sut;
   let coursesService;
+  let router;
 
   beforeEach(() => {
     coursesService = {
       createItem: jasmine.createSpy('createItem')
     };
 
-    sut = new CoursesItemFormComponent(coursesService);
+    router = {
+      navigateByUrl: jasmine.createSpy('navigateByUrl')
+    };
+
+    sut = new CoursesItemFormComponent(coursesService, router);
 
     sut.form = {
       title: '',

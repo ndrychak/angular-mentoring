@@ -1,6 +1,9 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {Router} from '@angular/router';
+
 import {ICoursesListItem} from '../../../courses-list/models/courses-list-item';
 import {INewCourse} from '../../models/new-course';
+
 import {CoursesService} from '../../../courses.service';
 
 @Component({
@@ -20,7 +23,10 @@ export class CoursesItemFormComponent {
     duration: 0
   };
 
-  constructor(private coursesService: CoursesService) { }
+  constructor(
+    private coursesService: CoursesService,
+    private router: Router
+  ) { }
 
   setDuration(duration) {
     this.form.duration = duration;
@@ -35,5 +41,6 @@ export class CoursesItemFormComponent {
     this.form.description = form.value.description;
 
     this.coursesService.createItem(this.form);
+    this.router.navigateByUrl('/courses');
   }
 }

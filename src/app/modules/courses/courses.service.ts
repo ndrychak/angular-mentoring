@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { ICoursesListItem } from './courses-list/models/courses-list-item';
-import { FilterPipe } from '../../core/pipes/filter/filter.pipe';
+import {HttpClient} from '@angular/common/http';
+import {ICoursesListItem} from './courses-list/models/courses-list-item';
+import {FilterPipe} from '../../core/pipes/filter/filter.pipe';
 
 @Injectable()
 
@@ -23,8 +23,8 @@ export class CoursesService {
     return this.http.get<ICoursesListItem[]>('assets/mocks/courses.json');
   }
 
-  getCourseById(): Observable<ICoursesListItem> {
-    return this.http.get<ICoursesListItem>('assets/mocks/course.json');
+  getCourseById(coursesList: ICoursesListItem[], courseId: number): ICoursesListItem {
+    return coursesList.filter(course => course.id === courseId)[0];
   }
 
   storeList(data) {

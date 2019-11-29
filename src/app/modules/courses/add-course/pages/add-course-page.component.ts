@@ -1,6 +1,5 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Observable} from 'rxjs';
 
 import {ICoursesListItem} from '../../courses-list/models/courses-list-item';
 
@@ -14,17 +13,21 @@ import {CoursesService} from '../../courses.service';
 })
 
 export class AddCoursePageComponent implements OnInit {
-  courseItem$: Observable<ICoursesListItem>;
+  courseItem: ICoursesListItem;
 
   constructor(
     private route: ActivatedRoute,
-    private coursesService: CoursesService
+    private coursesService: CoursesService,
+    private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(routeParams => {
-      if (routeParams.id) {
-        this.courseItem$ = this.coursesService.getCourseById();
+      if (routeParams.courseId) {
+        this.coursesService.getList().subscribe(coursesList => {
+          this.courseItem = this.coursesService.getCourseById(coursesList, Number(routeParams.courseId));
+          this.cd.markForCheck();
+        });
       }
     });
   }

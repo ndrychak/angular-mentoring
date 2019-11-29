@@ -1,8 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-
-import {CoursesService} from '../../courses.service';
-import {AuthService} from '../../../../core/services/authentication/authentication.service';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 @Component({
   selector: 'agm-courses-page',
@@ -11,17 +7,7 @@ import {AuthService} from '../../../../core/services/authentication/authenticati
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class CoursesPageComponent implements OnInit {
+export class CoursesPageComponent {
 
-  constructor(
-    private coursesService: CoursesService,
-    private authService: AuthService,
-    private router: Router
-  ) {}
-
-  ngOnInit(): void {
-    if (!this.authService.isAuthenticated()) {
-      this.router.navigateByUrl('/login');
-    }
-  }
+  constructor() {}
 }

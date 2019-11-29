@@ -19,7 +19,10 @@ import {CoursesService} from './courses.service';
   providers: [
     CoursesService
   ],
-  imports: [],
+  imports: [
+    CommonModule,
+    RouterModule
+  ],
   exports: [
     CommonModule,
     RouterModule,
