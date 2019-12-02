@@ -20,27 +20,39 @@ export class BreadcrumbsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe(routerParams => {
-      this.route.data.subscribe(data => {
-        if (routerParams.courseId) {
-          this.setDynamicCourseTitle(data.breadcrumbs, routerParams.courseId);
-        }
+    const breadcrumbs = [];
 
-        this.breadcrumbs = data.breadcrumbs;
-      });
+    this.route.pathFromRoot.forEach(item => { // get url data as tree
+      if (item.snapshot.routeConfig && item.snapshot.routeConfig.data && item.snapshot.routeConfig.data.breadcrumbs) {
+        item.snapshot.routeConfig.data.breadcrumbs.forEach(breadcrumb => {
+          if (breadcrumb.dynamicCourseTitle) {
+            breadcrumbs.push({
+              title: ''
+            });
+            this.setDynamicCourseTitle(breadcrumbs, breadcrumbs.length - 1);
+          } else {
+            breadcrumbs.push({
+              url: item.snapshot.routeConfig.path,
+              title: breadcrumb.title
+            });
+          }
+        });
+      }
     });
+
+    this.breadcrumbs = breadcrumbs;
   }
 
   /**
    * find breadcrumb that needs dynamic title. request title. set title and refresh view
    */
-  setDynamicCourseTitle(breadcrumbs, courseId) {
-    breadcrumbs.forEach(breadcrumb => {
-      if (breadcrumb.dynamicCourseTitle) {
-        this.coursesService.getList().subscribe(coursesList => {
-          breadcrumb.title = this.coursesService.getCourseById(coursesList, Number(courseId)).title;
-          this.cd.markForCheck();
-        });
+  setDynamicCourseTitle(breadcrumbs, itemIndex) {
+    this.route.params.subscribe(routerParams => {
+      if (routerParams.courseId) {
+          this.coursesService.getList().subscribe(coursesList => {
+            breadcrumbs[itemIndex].title = this.coursesService.getCourseById(coursesList, Number(routerParams.courseId)).title;
+            this.cd.markForCheck();
+          });
       }
     });
   }

@@ -2,7 +2,7 @@
   <nav class="page-container">
     <ul class="menu">
       <li *ngFor="let breadcrumb of breadcrumbs; let isLast = last;" class="item">
-        <a *ngIf="!isLast" routerLink="{{breadcrumb.url}}" class="link">{{breadcrumb.title}}</a>
+        <a *ngIf="!isLast" routerLink="/{{breadcrumb.url}}" class="link">{{breadcrumb.title}}</a>
         <span *ngIf="!isLast" class="sep"> / </span>
         <span *ngIf="isLast" class="last">{{breadcrumb.title}}</span>
       </li>
