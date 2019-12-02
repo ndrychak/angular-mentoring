@@ -17,9 +17,9 @@ const routes: Routes = [
     path: 'courses',
     canActivate: [AuthGuard],
     data: {
-      breadcrumbs: [{
+      breadcrumb: {
         title: 'Courses'
-      }]
+      }
     },
     children: [
       {
@@ -30,17 +30,17 @@ const routes: Routes = [
         path: 'new',
         component: AddCoursePageComponent,
         data: {
-          breadcrumbs: [{
+          breadcrumb: {
             title: 'New Course'
-          }]
+          }
         }
       }, {
         path: ':courseId',
         component: AddCoursePageComponent,
         data: {
-          breadcrumbs: [{
+          breadcrumb: {
             dynamicCourseTitle: true
-          }]
+          }
         }
       }
     ]

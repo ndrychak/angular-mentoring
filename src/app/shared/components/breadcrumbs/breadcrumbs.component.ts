@@ -23,20 +23,17 @@ export class BreadcrumbsComponent implements OnInit {
     const breadcrumbs = [];
 
     this.route.pathFromRoot.forEach(item => { // get url data as tree
-      if (item.snapshot.routeConfig && item.snapshot.routeConfig.data && item.snapshot.routeConfig.data.breadcrumbs) {
-        item.snapshot.routeConfig.data.breadcrumbs.forEach(breadcrumb => {
-          if (breadcrumb.dynamicCourseTitle) {
-            breadcrumbs.push({
-              title: ''
-            });
-            this.setDynamicCourseTitle(breadcrumbs, breadcrumbs.length - 1);
-          } else {
-            breadcrumbs.push({
-              url: item.snapshot.routeConfig.path,
-              title: breadcrumb.title
-            });
-          }
-        });
+      if (item.snapshot.routeConfig && item.snapshot.routeConfig.data && item.snapshot.routeConfig.data.breadcrumb) {
+        const breadcrumb = item.snapshot.routeConfig.data.breadcrumb;
+
+        if (breadcrumb.dynamicCourseTitle) {
+          this.setDynamicCourseTitle(breadcrumbs);
+        } else {
+          breadcrumbs.push({
+            url: item.snapshot.routeConfig.path,
+            title: breadcrumb.title
+          });
+        }
       }
     });
 
@@ -46,11 +43,15 @@ export class BreadcrumbsComponent implements OnInit {
   /**
    * find breadcrumb that needs dynamic title. request title. set title and refresh view
    */
-  setDynamicCourseTitle(breadcrumbs, itemIndex) {
+  setDynamicCourseTitle(breadcrumbs) {
+    breadcrumbs.push({});
+
+    const breadcrumbIndex = breadcrumbs.length - 1;
+
     this.route.params.subscribe(routerParams => {
       if (routerParams.courseId) {
           this.coursesService.getList().subscribe(coursesList => {
-            breadcrumbs[itemIndex].title = this.coursesService.getCourseById(coursesList, Number(routerParams.courseId)).title;
+            breadcrumbs[breadcrumbIndex].title = this.coursesService.getCourseById(coursesList, Number(routerParams.courseId)).title;
             this.cd.markForCheck();
           });
       }
