@@ -1,0 +1,13 @@
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+
+import {PipesModule} from './pipes/pipes.module';
+import {DirectivesModule} from './directives/directives.module';
+
+@NgModule({
+  imports: [CommonModule, PipesModule, DirectivesModule],
+  declarations: [],
+  exports: [PipesModule, DirectivesModule],
+})
+
+export class CoreModule { }

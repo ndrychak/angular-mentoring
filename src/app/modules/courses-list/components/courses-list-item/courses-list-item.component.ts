@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@
 
 import {ICoursesListItem} from '../../models/courses-list-item';
 
-import {CoursesService} from '../../../courses.service';
+import {CoursesService} from '../../../../core/services/courses/courses.service';
 
 @Component({
   selector: 'agm-courses-list-item',

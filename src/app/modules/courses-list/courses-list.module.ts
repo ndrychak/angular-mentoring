@@ -1,6 +1,9 @@
 import {NgModule} from '@angular/core';
 import {MatDialogModule} from '@angular/material';
-import {CoursesModule} from '../courses.module';
+import {RouterModule} from '@angular/router';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {IconSpriteModule} from 'ng-svg-icon-sprite';
 
 import {CoursesPageComponent} from './pages/courses-page.component';
 import {SearchComponent} from './components/search/search.component';
@@ -8,10 +11,11 @@ import {CoursesListComponent} from './components/courses-list/courses-list.compo
 import {CoursesListItemComponent} from './components/courses-list-item/courses-list-item.component';
 import {DeleteCoursePopupComponent} from './components/delete-course-popup/delete-course-popup.component';
 
-import {OrderByPipe} from '../../../core/pipes/order-by/order-by.pipe';
-import {FilterPipe} from '../../../core/pipes/filter/filter.pipe';
+import {routes} from './courses-list.routing';
+import {CoursesService} from '../../core/services/courses/courses.service';
 
-import {HighlightDirective} from '../../../core/directives/highlight/highlight.directive';
+import {SharedModule} from '../../shared/shared.module';
+import {CoreModule} from '../../core/core.module';
 
 @NgModule({
   declarations: [
@@ -20,18 +24,19 @@ import {HighlightDirective} from '../../../core/directives/highlight/highlight.d
     CoursesListItemComponent,
     DeleteCoursePopupComponent,
     CoursesPageComponent,
-
-    OrderByPipe,
-    FilterPipe,
-
-    HighlightDirective
   ],
   imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    IconSpriteModule,
     MatDialogModule,
-    CoursesModule
+    RouterModule.forChild(routes),
+    SharedModule,
+    CoreModule
   ],
   providers: [
-    FilterPipe
+    CoursesService
   ],
   exports: [
     CoursesPageComponent

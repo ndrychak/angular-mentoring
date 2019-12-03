@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {ICoursesListItem} from '../../../courses-list/models/courses-list-item';
 import {INewCourse} from '../../models/new-course';
 
-import {CoursesService} from '../../../courses.service';
+import {CoursesService} from '../../../../core/services/courses/courses.service';
 
 @Component({
   selector: 'agm-courses-item-form',

@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-import {ICoursesListItem} from './courses-list/models/courses-list-item';
-import {FilterPipe} from '../../core/pipes/filter/filter.pipe';
+import {ICoursesListItem} from '../../../modules/courses-list/models/courses-list-item';
+import {FilterPipe} from '../../pipes/filter/filter.pipe';
 
 @Injectable()
 

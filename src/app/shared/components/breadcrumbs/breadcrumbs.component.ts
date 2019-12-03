@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
-import {CoursesService} from '../../../modules/courses/courses.service';
+import {CoursesService} from '../../../core/services/courses/courses.service';
 
 @Component({
   selector: 'agm-breadcrumbs',

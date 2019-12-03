@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {CoursesService} from '../../../courses.service';
+import {CoursesService} from '../../../../core/services/courses/courses.service';
 
 @Component({
   selector: 'agm-search',

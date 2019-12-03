@@ -1,11 +1,6 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-import {CoursesPageComponent} from './modules/courses/courses-list/pages/courses-page.component';
-import {AddCoursePageComponent} from './modules/courses/add-course/pages/add-course-page.component';
-import {LoginPageComponent} from './modules/login/pages/login-page.component';
-import {NotFoundPageComponent} from './modules/not-found/pages/not-found-page.component';
-
 import {AuthGuard} from './core/guards/auth-guard/auth.guard';
 
 const routes: Routes = [
@@ -24,11 +19,11 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: CoursesPageComponent
+        loadChildren: () => import('./modules/courses-list/courses-list.module').then(mod => mod.CoursesListModule)
       },
       {
         path: 'new',
-        component: AddCoursePageComponent,
+        loadChildren: () => import('./modules/add-course/add-course.module').then(mod => mod.AddCourseModule),
         data: {
           breadcrumb: {
             title: 'New Course'
@@ -36,7 +31,7 @@ const routes: Routes = [
         }
       }, {
         path: ':courseId',
-        component: AddCoursePageComponent,
+        loadChildren: () => import('./modules/add-course/add-course.module').then(mod => mod.AddCourseModule),
         data: {
           breadcrumb: {
             dynamicCourseTitle: true
@@ -46,10 +41,10 @@ const routes: Routes = [
     ]
   }, {
     path: 'login',
-    component: LoginPageComponent
+    loadChildren: () => import('./modules/login/login.module').then(mod => mod.LoginModule)
   }, {
     path: '**',
-    component: NotFoundPageComponent
+    loadChildren: () => import('./modules/not-found/not-found.module').then(mod => mod.NotFoundModule)
   }
 ];
 

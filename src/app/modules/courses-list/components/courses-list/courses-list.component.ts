@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 
 import {ICoursesListItem} from '../../models/courses-list-item';
 
-import {CoursesService} from '../../../courses.service';
+import {CoursesService} from '../../../../core/services/courses/courses.service';
 
 import {DeleteCoursePopupComponent} from '../delete-course-popup/delete-course-popup.component';
 
