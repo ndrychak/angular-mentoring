@@ -1,0 +1,36 @@
+<article class="panel courses-list-item"
+         [ngClass]="{'top-rated': coursesListItem.topRated}"
+         agmHighlight [creationDate]="coursesListItem.creationDate">
+  <div class="content">
+    <header class="header">
+      <h2 class="title">
+        {{coursesListItem.title | titlecase}}
+        <svg-icon-sprite *ngIf="coursesListItem.topRated" [src]="'star'" [class]="'icon icon-star'"></svg-icon-sprite>
+      </h2>
+      <div class="time-wrapper">
+      <span class="duration">
+        <svg-icon-sprite [src]="'clock'" [class]="'icon icon-clock'"></svg-icon-sprite>
+        {{coursesListItem.duration | duration}}
+      </span>
+        <span class="date">
+        <svg-icon-sprite [src]="'calendar'" [class]="'icon icon-calendar'"></svg-icon-sprite>
+          {{coursesListItem.creationDate | date:'d MMM, y'}}
+      </span>
+      </div>
+    </header>
+    <div class="description">
+      {{coursesListItem.description}}
+    </div>
+  </div>
+
+  <div class="actions">
+    <button class="button button-icon button-edit" routerLink="/courses/{{coursesListItem.id}}">
+      <svg-icon-sprite [src]="'pen'" [class]="'icon icon-pen'"></svg-icon-sprite>
+      Edit
+    </button>
+    <button class="button button-icon button-delete" (click)="deleteButtonHandler()">
+      <svg-icon-sprite [src]="'trash'" [class]="'icon icon-trash'"></svg-icon-sprite>
+      Delete
+    </button>
+  </div>
+</article>

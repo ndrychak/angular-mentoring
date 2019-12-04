@@ -1,33 +1,50 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 
-import {CoursesPageComponent} from './modules/courses/courses-list/pages/courses-page.component';
-import {AddCoursePageComponent} from './modules/courses/add-course/pages/add-course-page.component';
-import {LoginPageComponent} from './modules/login/pages/login-page.component';
+import {AuthGuard} from './core/guards/auth-guard/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/login',
+    redirectTo: '/courses',
     pathMatch: 'full'
   }, {
     path: 'courses',
+    canActivate: [AuthGuard],
+    data: {
+      breadcrumb: {
+        title: 'Courses'
+      }
+    },
     children: [
       {
         path: '',
-        component: CoursesPageComponent
+        loadChildren: () => import('./modules/courses-list/courses-list.module').then(mod => mod.CoursesListModule)
       },
       {
-        path: 'add',
-        component: AddCoursePageComponent
+        path: 'new',
+        loadChildren: () => import('./modules/add-course/add-course.module').then(mod => mod.AddCourseModule),
+        data: {
+          breadcrumb: {
+            title: 'New Course'
+          }
+        }
       }, {
-        path: 'edit/:id',
-        component: AddCoursePageComponent
+        path: ':courseId',
+        loadChildren: () => import('./modules/add-course/add-course.module').then(mod => mod.AddCourseModule),
+        data: {
+          breadcrumb: {
+            dynamicCourseTitle: true
+          }
+        }
       }
     ]
   }, {
     path: 'login',
-    component: LoginPageComponent
+    loadChildren: () => import('./modules/login/login.module').then(mod => mod.LoginModule)
+  }, {
+    path: '**',
+    loadChildren: () => import('./modules/not-found/not-found.module').then(mod => mod.NotFoundModule)
   }
 ];
 
