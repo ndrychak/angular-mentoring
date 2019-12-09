@@ -1,4 +1,4 @@
-<form class="form" #loginForm="ngForm">
+<form class="form" #loginForm="ngForm" (ngSubmit)="loginUser(loginForm)">
   <p class="form-title">Login</p>
 
   <div class="form-item">
@@ -19,7 +19,7 @@
 
   <div class="form-buttons between">
     <a href="#" class="forgot-pass-link">Forgot password?</a>
-    <button class="button-style-primary" type="button" (click)="loginUser(loginForm)" [disabled]="loginForm.invalid">
+    <button class="button-style-primary" type="submit" [disabled]="loginForm.invalid">
       Login
     </button>
   </div>

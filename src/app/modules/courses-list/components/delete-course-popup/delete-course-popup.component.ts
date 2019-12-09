@@ -9,13 +9,13 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material';
 
 export class DeleteCoursePopupComponent {
   id: number;
-  title: string;
+  name: string;
 
   constructor(
     private dialogRef: MatDialogRef<DeleteCoursePopupComponent>,
     @Inject(MAT_DIALOG_DATA) data
   ) {
-    this.title = data.title;
+    this.name = data.name;
     this.id = data.id;
   }
 

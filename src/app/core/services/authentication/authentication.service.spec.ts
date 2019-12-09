@@ -3,26 +3,25 @@ import { AuthService } from './authentication.service';
 describe('AuthService', () => {
   let sut;
   let router;
+  let http;
 
   beforeEach(() => {
     router = {
       navigateByUrl: jasmine.createSpy('navigateByUrl')
     };
 
-    sut = new AuthService(router);
+    http = {
+      get: jasmine.createSpy('get'),
+      post: jasmine.createSpy('post'),
+      patch: jasmine.createSpy('patch'),
+      delete: jasmine.createSpy('delete')
+    };
+
+    sut = new AuthService(router, http);
   });
 
   afterEach(() => {
     localStorage.removeItem('userInfo');
-    localStorage.removeItem('jwtToken');
-  });
-
-  describe('#login', () => {
-    it('should set localstorage userInfo', () => {
-      sut.login({email: 'test', password: 'testPass'});
-
-      expect(localStorage.getItem('userInfo')).toEqual('{"email":"test","password":"testPass"}');
-    });
   });
 
   describe('#logout', () => {

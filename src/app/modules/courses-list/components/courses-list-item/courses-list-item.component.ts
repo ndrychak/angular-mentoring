@@ -2,8 +2,6 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@
 
 import {ICoursesListItem} from '../../models/courses-list-item';
 
-import {CoursesService} from '../../../../core/services/courses/courses.service';
-
 @Component({
   selector: 'agm-courses-list-item',
   templateUrl: './courses-list-item.component.html',
@@ -15,11 +13,7 @@ export class CoursesListItemComponent {
   @Input() coursesListItem: ICoursesListItem;
   @Output() deletedCourse = new EventEmitter<ICoursesListItem>();
 
-  constructor(private coursesService: CoursesService) { }
-
-  editCourse(): void {
-    this.coursesService.updateItem(this.coursesListItem.id);
-  }
+  constructor() { }
 
   deleteButtonHandler(): void {
     this.deletedCourse.emit(this.coursesListItem);

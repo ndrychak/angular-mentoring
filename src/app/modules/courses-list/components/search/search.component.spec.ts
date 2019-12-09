@@ -14,7 +14,7 @@ describe('SearchComponent', () => {
 
   describe('#filterCourses', () => {
     it('should use coursesService to trigger observable event', () => {
-      sut.findCourse();
+      sut.filterCourses();
 
       expect(coursesService.filterCourses).toHaveBeenCalled();
     });

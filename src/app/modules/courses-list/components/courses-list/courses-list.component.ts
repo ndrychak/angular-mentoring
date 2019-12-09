@@ -1,7 +1,5 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material';
-import {Observable} from 'rxjs';
-
 import {ICoursesListItem} from '../../models/courses-list-item';
 
 import {CoursesService} from '../../../../core/services/courses/courses.service';
@@ -16,19 +14,43 @@ import {DeleteCoursePopupComponent} from '../delete-course-popup/delete-course-p
 })
 
 export class CoursesListComponent implements OnInit {
-  currentCourses$: Observable<ICoursesListItem[]>;
+  private page: number;
+
+  currentCourses = [];
 
   constructor(
     private coursesService: CoursesService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
-    this.coursesService.getList().subscribe((data) => {
-      this.coursesService.storeList(data);
+    this.page = 0;
+
+    this.loadCourses();
+
+    this.coursesService.coursesList$.subscribe(data => {
+      this.currentCourses = data.courses;
+
+      if (data.resetPageCounter) {
+        this.page = 0;
+      }
+
+      this.cd.markForCheck();
+    });
+  }
+
+  loadMore() {
+    this.loadCourses(this.page);
+  }
+
+  loadCourses(page: number = 0) {
+    this.coursesService.getList(page).subscribe(courses => {
+      this.currentCourses = this.currentCourses.concat(courses);
+      this.cd.markForCheck();
     });
 
-    this.currentCourses$ = this.coursesService.coursesList$;
+    this.page++;
   }
 
   onDeletedCourse(data: ICoursesListItem): void {
@@ -39,7 +61,7 @@ export class CoursesListComponent implements OnInit {
     dialogConfig.panelClass = 'agm-popup';
     dialogConfig.data = {
       id: data.id,
-      title: data.title
+      name: data.name
     };
 
     const dialogRef = this.dialog.open(DeleteCoursePopupComponent, dialogConfig);

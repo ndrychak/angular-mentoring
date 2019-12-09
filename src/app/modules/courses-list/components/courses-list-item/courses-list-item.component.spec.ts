@@ -2,15 +2,9 @@ import { CoursesListItemComponent } from './courses-list-item.component';
 
 describe('CoursesListItemComponent', () => {
   let sut;
-  let coursesService;
 
   beforeEach(() => {
-    coursesService = {
-      updateItem: jasmine.createSpy('updateItem'),
-      removeItem: jasmine.createSpy('removeItem'),
-    };
-
-    sut = new CoursesListItemComponent(coursesService);
+    sut = new CoursesListItemComponent();
 
     sut.deletedCourse = {
       emit: jasmine.createSpy('emit'),
@@ -21,17 +15,9 @@ describe('CoursesListItemComponent', () => {
       title: 'test title',
       creationDate: '2019-08-15T13:45:30',
       duration: 100,
-      topRated: false,
+      isTopRated: false,
       description: 'test info'
     };
-  });
-
-  describe('#editCourse', () => {
-    it('should use coursesService to update item', () => {
-      sut.editCourse();
-
-      expect(coursesService.updateItem).toHaveBeenCalledWith(42);
-    });
   });
 
   describe('#deleteButtonHandler', () => {

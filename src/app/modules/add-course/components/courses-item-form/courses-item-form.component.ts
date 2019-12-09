@@ -15,32 +15,47 @@ import {CoursesService} from '../../../../core/services/courses/courses.service'
 
 export class CoursesItemFormComponent {
   @Input() courseItem: ICoursesListItem;
+  @Input() isEditForm: boolean;
 
+  public title: string;
   private form: INewCourse = {
-    title: '',
+    name: '',
+    date: '',
+    length: 0,
     description: '',
-    creationDate: '',
-    duration: 0
+    authors: [],
+    isTopRated: false
   };
 
   constructor(
     private coursesService: CoursesService,
     private router: Router
-  ) { }
+  ) {
+    this.title = this.isEditForm ? 'Edit course' : 'New course';
+  }
 
   setDuration(duration) {
-    this.form.duration = duration;
+    this.form.length = duration;
   }
 
   setCreationDate(creationDate) {
-    this.form.creationDate = creationDate;
+    this.form.date = creationDate;
   }
 
   save(form) {
-    this.form.title = form.value.title;
+    const action = this.isEditForm ? 'updateItem' : 'createItem';
+
+    this.form.name = form.value.title;
     this.form.description = form.value.description;
 
-    this.coursesService.createItem(this.form);
-    this.router.navigateByUrl('/courses');
+    if (this.isEditForm) {
+      this.form.id = this.courseItem.id;
+      this.form.isTopRated = this.courseItem.isTopRated;
+      this.form.authors = this.courseItem.authors;
+    }
+
+    this.coursesService[action](this.form).subscribe(() => {
+      this.router.navigateByUrl('/courses');
+    });
   }
 }
