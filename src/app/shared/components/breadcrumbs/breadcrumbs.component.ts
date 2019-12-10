@@ -17,7 +17,7 @@ export class BreadcrumbsComponent implements OnInit {
     private route: ActivatedRoute,
     private coursesService: CoursesService,
     private cd: ChangeDetectorRef
-  ) { }
+  ) {}
 
   ngOnInit() {
     const breadcrumbs = [];
@@ -50,8 +50,8 @@ export class BreadcrumbsComponent implements OnInit {
 
     this.route.params.subscribe(routerParams => {
       if (routerParams.courseId) {
-          this.coursesService.getList().subscribe(coursesList => {
-            breadcrumbs[breadcrumbIndex].title = this.coursesService.getCourseById(coursesList, Number(routerParams.courseId)).title;
+          this.coursesService.getItem(Number(routerParams.courseId)).subscribe(courseItem => {
+            breadcrumbs[breadcrumbIndex].title = courseItem.name;
             this.cd.markForCheck();
           });
       }

@@ -1,4 +1,5 @@
 import { CoursesItemFormComponent } from './courses-item-form.component';
+import {of} from 'rxjs';
 
 describe('CoursesItemFormComponent', () => {
   let sut;
@@ -7,7 +8,12 @@ describe('CoursesItemFormComponent', () => {
 
   beforeEach(() => {
     coursesService = {
-      createItem: jasmine.createSpy('createItem')
+      createItem: jasmine.createSpy('createItem').and.callFake(() => {
+        return of([]);
+      }),
+      updateItem: jasmine.createSpy('updateItem').and.callFake(() => {
+        return of([]);
+      })
     };
 
     router = {
@@ -16,19 +22,20 @@ describe('CoursesItemFormComponent', () => {
 
     sut = new CoursesItemFormComponent(coursesService, router);
 
-    sut.form = {
-      title: '',
-      description: '',
-      creationDate: '',
-      duration: 0
+    sut.courseItem = {
+      id: 1111,
+      isTopRated: false,
+      authors: []
     };
+
+    sut.form = {};
   });
 
   describe('#setDuration', () => {
     it('should set form property: duration', () => {
       sut.setDuration(12);
 
-      expect(sut.form.duration).toEqual(12);
+      expect(sut.form.length).toEqual(12);
     });
   });
 
@@ -36,30 +43,25 @@ describe('CoursesItemFormComponent', () => {
     it('should set form property: creationDate', () => {
       sut.setCreationDate('2019-11-05');
 
-      expect(sut.form.creationDate).toEqual('2019-11-05');
+      expect(sut.form.date).toEqual('2019-11-05');
     });
   });
 
   describe('#save', () => {
-    it('should send form data to courses service', () => {
-      sut.form = {
-        date: '2019-12-12',
-        duration: 44
-      };
+    it('should call createItem method of courses service', () => {
+      sut.isEditForm = false;
 
-      sut.save({
-        value: {
-          title: 'test',
-          description: 'test'
-        }
-      });
+      sut.save({value: {}});
 
-      expect(coursesService.createItem).toHaveBeenCalledWith({
-        title: 'test',
-        description: 'test',
-        date: '2019-12-12',
-        duration: 44
-      });
+      expect(coursesService.createItem).toHaveBeenCalled();
+    });
+
+    it('should call updateItem method of courses service', () => {
+      sut.isEditForm = true;
+
+      sut.save({value: {}});
+
+      expect(coursesService.updateItem).toHaveBeenCalled();
     });
   });
 });

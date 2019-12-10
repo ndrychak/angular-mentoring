@@ -13,7 +13,7 @@ export class SearchComponent {
 
   constructor(private coursesService: CoursesService) { }
 
-  findCourse(): void {
+  filterCourses(): void {
     this.coursesService.filterCourses(this.searchText);
   }
 }

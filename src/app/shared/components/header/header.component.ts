@@ -18,12 +18,14 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit() {
     this.isAuthenticatedUser$ = this.authService.isAuthenticated$;
+    this.isAuthenticatedUser$.subscribe(isAuth => this.renderUsernameInfo(isAuth));
+  }
 
-    this.isAuthenticatedUser$.subscribe(isAuth => {
-      if (isAuth) {
-        this.username = this.authService.getUserInfo().email;
-      }
-    });
+  renderUsernameInfo(isAuth) {
+    if (isAuth) {
+      const userInfo = this.authService.getUserInfo();
+      this.username = `${userInfo.firstName} ${userInfo.lastName}`;
+    }
   }
 
   logout() {

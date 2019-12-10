@@ -5,7 +5,7 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 })
 
 export class HighlightDirective implements OnInit {
-  @Input() creationDate: string;
+  @Input() date: string;
 
   el: ElementRef;
 
@@ -14,7 +14,7 @@ export class HighlightDirective implements OnInit {
   }
 
   ngOnInit() {
-    const creationDate = new Date(this.creationDate);
+    const creationDate = new Date(this.date);
     const currentDate = new Date();
     const days = 14;
     const daysAgo = new Date(new Date().setDate(new Date().getDate() - days));

@@ -1,20 +1,20 @@
 <article class="panel courses-list-item"
-         [ngClass]="{'top-rated': coursesListItem.topRated}"
-         agmHighlight [creationDate]="coursesListItem.creationDate">
+         [ngClass]="{'top-rated': coursesListItem.isTopRated}"
+         agmHighlight [date]="coursesListItem.date">
   <div class="content">
     <header class="header">
       <h2 class="title">
-        {{coursesListItem.title | titlecase}}
-        <svg-icon-sprite *ngIf="coursesListItem.topRated" [src]="'star'" [class]="'icon icon-star'"></svg-icon-sprite>
+        {{coursesListItem.name | titlecase}}
+        <svg-icon-sprite *ngIf="coursesListItem.isTopRated" [src]="'star'" [class]="'icon icon-star'"></svg-icon-sprite>
       </h2>
       <div class="time-wrapper">
       <span class="duration">
         <svg-icon-sprite [src]="'clock'" [class]="'icon icon-clock'"></svg-icon-sprite>
-        {{coursesListItem.duration | duration}}
+        {{coursesListItem.length | duration}}
       </span>
         <span class="date">
         <svg-icon-sprite [src]="'calendar'" [class]="'icon icon-calendar'"></svg-icon-sprite>
-          {{coursesListItem.creationDate | date:'d MMM, y'}}
+          {{coursesListItem.date | date:'d MMM, y'}}
       </span>
       </div>
     </header>

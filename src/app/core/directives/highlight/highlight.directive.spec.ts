@@ -32,14 +32,14 @@ describe('HighlightDirective', () => {
     });
 
     it('should call highlightWith with color when article will be published in future', () => {
-      sut.creationDate = '2020-11-05';
+      sut.date = '2020-11-05';
       sut.ngOnInit();
 
       expect(sut.highlightWith).toHaveBeenCalledWith(colorFuture);
     });
 
     it('should call highlightWith with color when article was published less then 14 days ago', () => {
-      sut.creationDate = '2019-11-05';
+      sut.date = '2019-11-05';
       sut.ngOnInit();
 
       expect(sut.highlightWith).toHaveBeenCalledWith(colorPast);

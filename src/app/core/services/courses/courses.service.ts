@@ -1,60 +1,74 @@
 import {Injectable} from '@angular/core';
 import {Observable, Subject} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {ICoursesListItem} from '../../../modules/courses-list/models/courses-list-item';
-import {FilterPipe} from '../../pipes/filter/filter.pipe';
+
+import {INewCourse} from '../../../modules/add-course/models/new-course';
+import {environment} from '../../../../environments/environment';
 
 @Injectable()
 
 export class CoursesService {
-  private coursesListSubject = new Subject<ICoursesListItem[]>();
-  private allCourses: ICoursesListItem[];
+  private coursesListSubject = new Subject<{courses: ICoursesListItem[]; resetPageCounter?: boolean}>();
+  private textFragment: string;
 
-  coursesList$ = new Observable<ICoursesListItem[]>();
+  coursesList$ = new Observable<{courses: ICoursesListItem[]; resetPageCounter?: boolean}>();
 
-  constructor(
-    private http: HttpClient,
-    private filterPipe: FilterPipe
-  ) {
+  constructor(private http: HttpClient) {
     this.coursesList$ = this.coursesListSubject.asObservable();
   }
 
-  getList(): Observable<ICoursesListItem[]> {
-    return this.http.get<ICoursesListItem[]>('assets/mocks/courses.json');
+  getList(page: number = 0): Observable<ICoursesListItem[]> {
+    const ITEMS_PER_PAGE = 3;
+    const startAt = page * ITEMS_PER_PAGE;
+    let params = new HttpParams();
+
+    params = params.append('start', startAt.toString());
+    params = params.append('count', ITEMS_PER_PAGE.toString());
+    params = params.append('sort', 'date');
+
+    if (this.textFragment) {
+      params = params.append('textFragment', this.textFragment);
+    }
+
+    return this.http.get<ICoursesListItem[]>(environment.URLS.COURSES, {params});
   }
 
-  getCourseById(coursesList: ICoursesListItem[], courseId: number): ICoursesListItem {
-    return coursesList.filter(course => course.id === courseId)[0];
+  getItem(courseId: number) {
+    return this.http.get<ICoursesListItem>(environment.URLS.COURSES + courseId);
   }
 
-  storeList(data) {
-    this.allCourses = data;
-
-    this.coursesListSubject.next(this.allCourses);
+  createItem(course: INewCourse) {
+    return this.http.post(environment.URLS.COURSES, course);
   }
 
-  createItem(data: {
-    title: string,
-    description: string,
-    creationDate: string,
-    duration: number
-  }) {
-    console.log('CoursesService: createItem', data);
+  updateItem(course: INewCourse) {
+    return this.http.patch(environment.URLS.COURSES + course.id, course);
   }
 
-  updateItem(courseId: number): void {
-    console.log(`CoursesService: updateItem ${courseId}`);
+  deleteItem(courseId: number) {
+    return this.http.delete(environment.URLS.COURSES + courseId);
   }
 
-  removeItem(courseId: number): void {
-    this.allCourses = this.allCourses.filter(item => {
-      return item.id !== courseId;
+  removeItem(courseId: number) {
+    return this.deleteItem(courseId).subscribe(() => {
+      this.getList().subscribe(courses => {
+        this.coursesListSubject.next({
+          courses,
+          resetPageCounter: true
+        });
+      });
     });
-
-    this.coursesListSubject.next(this.allCourses);
   }
 
-  filterCourses(filterKey: string) {
-    this.coursesListSubject.next(this.filterPipe.transform(this.allCourses, 'title', filterKey));
+  filterCourses(textFragment: string) {
+    this.textFragment = textFragment;
+
+    this.getList().subscribe(courses => {
+      this.coursesListSubject.next({
+        courses,
+        resetPageCounter: true
+      });
+    });
   }
 }

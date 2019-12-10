@@ -1,7 +1,8 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {AuthService} from '../../../core/services/authentication/authentication.service';
 
 @Component({
-  selector: 'agm-login-page',
+  selector: 'agm-page',
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.styl'],
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -9,5 +10,12 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 export class LoginPageComponent {
 
-  constructor() {}
+  constructor(private authService: AuthService) { }
+
+  loginUser(form) {
+    this.authService.login({
+      email: form.value.email,
+      password: form.value.password
+    });
+  }
 }

@@ -1,12 +1,12 @@
 <form class="form panel" #courseForm="ngForm">
-  <h1 class="form-title">New course</h1>
+  <h1 class="form-title">{{title}}</h1>
 
   <div class="form-item">
     <label for="courseTitle" class="form-label">
       Title:
       <span class="form-required">*required</span>
     </label>
-    <input id="courseTitle" type="text" class="form-input" name="title" [ngModel]="courseItem?.title" required />
+    <input id="courseTitle" type="text" class="form-input" name="title" [ngModel]="courseItem?.name" required />
   </div>
 
   <div class="form-item">
@@ -19,11 +19,11 @@
   </div>
 
   <agm-duration-input
-    [duration]="courseItem?.duration"
+    [duration]="courseItem?.length"
     (durationValue)="setDuration($event)">
   </agm-duration-input>
   <agm-date-input
-    [date]="courseItem?.creationDate"
+    [date]="courseItem?.date"
     (dateValue)="setCreationDate($event)"
   ></agm-date-input>
 
