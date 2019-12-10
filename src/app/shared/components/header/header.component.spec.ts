@@ -9,10 +9,8 @@ describe('HeaderComponent', () => {
       logout: jasmine.createSpy('logout'),
       getUserInfo: jasmine.createSpy('getUserInfo').and.callFake(() => {
         return {
-          name: {
-            first: 'name',
-            last: 'last_name'
-          }
+          firstName: 'name',
+          lastName: 'last_name'
         };
       })
     };

@@ -5,14 +5,12 @@ import {RouterModule} from '@angular/router';
 import {IconSpriteModule} from 'ng-svg-icon-sprite';
 
 import {LoginPageComponent} from './pages/login-page.component';
-import {LoginFormComponent} from './components/login-form/login-form.component';
 
 import {routes} from './login.routing';
 
 @NgModule({
   declarations: [
-    LoginPageComponent,
-    LoginFormComponent
+    LoginPageComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +19,7 @@ import {routes} from './login.routing';
     RouterModule.forChild(routes)
   ],
   exports: [
-    LoginPageComponent,
+    LoginPageComponent
   ]
 })
 

@@ -1,6 +1,6 @@
-import { LoginFormComponent } from './login-form.component';
+import { LoginPageComponent } from './login-page.component';
 
-describe('LoginFormComponent', () => {
+describe('LoginPageComponent', () => {
   let sut;
   let authService;
 
@@ -9,7 +9,7 @@ describe('LoginFormComponent', () => {
       login: jasmine.createSpy('login')
     };
 
-    sut = new LoginFormComponent(authService);
+    sut = new LoginPageComponent(authService);
   });
 
   describe('#loginUser', () => {

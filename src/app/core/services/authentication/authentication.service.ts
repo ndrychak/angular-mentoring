@@ -33,8 +33,13 @@ export class AuthService {
   successfulLogin(token: string) {
     localStorage.setItem('token', token);
 
-    this.requestUserInfo().subscribe(userInfo => {
-      localStorage.setItem('userInfo', JSON.stringify(userInfo));
+    this.requestUserInfo().subscribe((userInfo: {id; login; name: {first; last}})  => {
+      localStorage.setItem('userInfo', JSON.stringify({
+        login: userInfo.login,
+        id: userInfo.id,
+        firstName: userInfo.name.first,
+        lastName: userInfo.name.last
+      }));
 
       this.authSubject.next(this.isAuthenticated());
 

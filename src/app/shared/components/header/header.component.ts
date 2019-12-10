@@ -23,8 +23,8 @@ export class HeaderComponent implements OnInit {
 
   renderUsernameInfo(isAuth) {
     if (isAuth) {
-      const username = this.authService.getUserInfo().name;
-      this.username = `${username.first} ${username.last}`;
+      const userInfo = this.authService.getUserInfo();
+      this.username = `${userInfo.firstName} ${userInfo.lastName}`;
     }
   }
 
