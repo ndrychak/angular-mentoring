@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
-import {Observable, BehaviorSubject} from 'rxjs';
+import {BehaviorSubject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 
 import {environment} from '../../../../environments/environment';
@@ -10,16 +10,12 @@ import {environment} from '../../../../environments/environment';
 })
 
 export class AuthService {
-  private authSubject = new BehaviorSubject<boolean>(this.isAuthenticated());
-
-  isAuthenticated$ = new Observable<boolean>();
+  public isAuthenticated$ = new BehaviorSubject<boolean>(this.isAuthenticated());
 
   constructor(
     private router: Router,
     private http: HttpClient
-  ) {
-    this.isAuthenticated$ = this.authSubject.asObservable();
-  }
+  ) { }
 
   login(data: {email: string; password: string}) {
     this.http
@@ -33,7 +29,7 @@ export class AuthService {
   successfulLogin(token: string) {
     localStorage.setItem('token', token);
 
-    this.requestUserInfo().subscribe((userInfo: {id; login; name: {first; last}})  => {
+    this.requestUserInfo().subscribe((userInfo: {id; login; name: {first; last}}) => {
       localStorage.setItem('userInfo', JSON.stringify({
         login: userInfo.login,
         id: userInfo.id,
@@ -41,7 +37,7 @@ export class AuthService {
         lastName: userInfo.name.last
       }));
 
-      this.authSubject.next(this.isAuthenticated());
+      this.isAuthenticated$.next(this.isAuthenticated());
 
       this.router.navigateByUrl('/courses');
     });
@@ -51,7 +47,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('userInfo');
 
-    this.authSubject.next(this.isAuthenticated());
+    this.isAuthenticated$.next(this.isAuthenticated());
 
     this.router.navigateByUrl('/login');
   }

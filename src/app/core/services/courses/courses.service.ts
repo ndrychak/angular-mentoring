@@ -9,14 +9,10 @@ import {environment} from '../../../../environments/environment';
 @Injectable()
 
 export class CoursesService {
-  private coursesListSubject = new Subject<{courses: ICoursesListItem[]; resetPageCounter?: boolean}>();
+  public coursesList$ = new Subject<{courses: ICoursesListItem[]; resetPageCounter?: boolean}>();
   private textFragment: string;
 
-  coursesList$ = new Observable<{courses: ICoursesListItem[]; resetPageCounter?: boolean}>();
-
-  constructor(private http: HttpClient) {
-    this.coursesList$ = this.coursesListSubject.asObservable();
-  }
+  constructor(private http: HttpClient) { }
 
   getList(page: number = 0): Observable<ICoursesListItem[]> {
     const ITEMS_PER_PAGE = 3;
@@ -53,7 +49,7 @@ export class CoursesService {
   removeItem(courseId: number) {
     return this.deleteItem(courseId).subscribe(() => {
       this.getList().subscribe(courses => {
-        this.coursesListSubject.next({
+        this.coursesList$.next({
           courses,
           resetPageCounter: true
         });
@@ -65,7 +61,7 @@ export class CoursesService {
     this.textFragment = textFragment;
 
     this.getList().subscribe(courses => {
-      this.coursesListSubject.next({
+      this.coursesList$.next({
         courses,
         resetPageCounter: true
       });

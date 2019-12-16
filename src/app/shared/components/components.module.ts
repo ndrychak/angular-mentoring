@@ -4,13 +4,15 @@ import {CommonModule} from '@angular/common';
 import {BreadcrumbsComponent} from './breadcrumbs/breadcrumbs.component';
 import {FooterComponent} from './footer/footer.component';
 import {HeaderComponent} from './header/header.component';
+import {LoaderComponent} from './loader/loader.component';
 import {RouterModule} from '@angular/router';
 import {IconSpriteModule} from 'ng-svg-icon-sprite';
 
 const components = [
   BreadcrumbsComponent,
   FooterComponent,
-  HeaderComponent
+  HeaderComponent,
+  LoaderComponent
 ];
 
 @NgModule({

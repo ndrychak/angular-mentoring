@@ -1,11 +1,10 @@
-<form class="search-form" (ngSubmit)="filterCourses()">
+<form class="search-form">
   <svg-icon-sprite [src]="'search'" [class]="'search-icon'"></svg-icon-sprite>
   <label class="search-input-wrapper">
     <input
       class="search-input"
       placeholder="Text to search"
       name="searchText"
-      [(ngModel)]="searchText" />
+      (keyup)="onInputChange($event)" />
   </label>
-  <button type="submit" class="search-submit">Search</button>
 </form>

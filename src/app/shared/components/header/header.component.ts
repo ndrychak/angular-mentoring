@@ -11,13 +11,12 @@ import {AuthService} from '../../../core/services/authentication/authentication.
 })
 
 export class HeaderComponent implements OnInit {
-  isAuthenticatedUser$: Observable<boolean>;
+  isAuthenticatedUser$: Observable<boolean> = this.authService.isAuthenticated$;
   username: string;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.isAuthenticatedUser$ = this.authService.isAuthenticated$;
     this.isAuthenticatedUser$.subscribe(isAuth => this.renderUsernameInfo(isAuth));
   }
 
