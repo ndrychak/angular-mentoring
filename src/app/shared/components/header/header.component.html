@@ -4,7 +4,7 @@
       <img class="site-logo" src="assets/logo/logo.png" srcset="assets/logo/logo@2x.png 2x" alt="Video Course">
     </a>
 
-    <nav class="menu" *ngIf="isAuthenticatedUser$ | async">
+    <nav class="menu" *ngIf="isAuthenticated">
       <div class="menu-item">
         <span class="user-login">
           <svg-icon-sprite [src]="'user'" [class]="'icon icon-user'"></svg-icon-sprite>

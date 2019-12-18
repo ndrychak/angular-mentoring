@@ -1,5 +1,6 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material';
+
 import {ICoursesListItem} from '../../models/courses-list-item';
 
 import {CoursesService} from '../../../../core/services/courses/courses.service';
@@ -13,8 +14,9 @@ import {DeleteCoursePopupComponent} from '../delete-course-popup/delete-course-p
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class CoursesListComponent implements OnInit {
+export class CoursesListComponent implements OnInit, OnDestroy {
   private page: number;
+  private coursesList$;
 
   currentCourses = [];
 
@@ -29,7 +31,7 @@ export class CoursesListComponent implements OnInit {
 
     this.loadCourses();
 
-    this.coursesService.coursesList$.subscribe(data => {
+    this.coursesList$ = this.coursesService.coursesList$.subscribe(data => {
       this.currentCourses = data.courses;
 
       if (data.resetPageCounter) {
@@ -38,6 +40,10 @@ export class CoursesListComponent implements OnInit {
 
       this.cd.markForCheck();
     });
+  }
+
+  ngOnDestroy() {
+    this.coursesList$.unsubscribe();
   }
 
   loadMore() {
