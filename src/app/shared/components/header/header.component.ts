@@ -1,6 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {Observable} from 'rxjs';
-
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {AuthService} from '../../../core/services/authentication/authentication.service';
 
 @Component({
@@ -10,22 +8,36 @@ import {AuthService} from '../../../core/services/authentication/authentication.
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class HeaderComponent implements OnInit {
-  isAuthenticatedUser$: Observable<boolean>;
-  username: string;
+export class HeaderComponent implements OnInit, OnDestroy {
+  private userState$;
+  private username: string;
+  private isAuthenticated: boolean;
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit() {
-    this.isAuthenticatedUser$ = this.authService.isAuthenticated$;
-    this.isAuthenticatedUser$.subscribe(isAuth => this.renderUsernameInfo(isAuth));
+    this.userState$ = this.authService.isAuthenticated$.subscribe(isAuth => this.onUserStateChange(isAuth));
   }
 
-  renderUsernameInfo(isAuth) {
-    if (isAuth) {
-      const userInfo = this.authService.getUserInfo();
-      this.username = `${userInfo.firstName} ${userInfo.lastName}`;
-    }
+  ngOnDestroy() {
+    this.userState$.unsubscribe();
+  }
+
+  onUserStateChange(isAuth) {
+    this.isAuthenticated = isAuth;
+
+    this.setUsername();
+
+    this.cd.markForCheck();
+  }
+
+  setUsername() {
+    const userInfo = this.authService.getUserInfo();
+
+    this.username = this.isAuthenticated ? `${userInfo.firstName} ${userInfo.lastName}` : '';
   }
 
   logout() {

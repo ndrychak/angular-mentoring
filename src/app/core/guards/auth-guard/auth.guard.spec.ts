@@ -21,13 +21,17 @@ describe('AuthGuard', () => {
     it('should return true for authenticated user', () => {
       authService.isAuthenticated.and.returnValue(true);
 
-      expect(sut.canActivate()).toEqual(true);
+      sut.canActivate().subscribe((res) => {
+        expect(res).toEqual(true);
+      });
     });
 
     it('should return false for not authenticated user', () => {
       authService.isAuthenticated.and.returnValue(false);
 
-      expect(sut.canActivate()).toEqual(false);
+      sut.canActivate().subscribe((res) => {
+        expect(res).toEqual(false);
+      });
     });
   });
 });

@@ -2,6 +2,7 @@ import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
   let sut;
+  let cd;
   let authService;
 
   beforeEach(() => {
@@ -15,14 +16,26 @@ describe('HeaderComponent', () => {
       })
     };
 
-    sut = new HeaderComponent(authService);
+    cd = {
+      markForCheck: jasmine.createSpy('markForCheck')
+    };
+
+    sut = new HeaderComponent(authService, cd);
   });
 
   describe('#renderUsernameInfo', () => {
     it('should set username for authenticated user', () => {
-      sut.renderUsernameInfo(true);
+      sut.isAuthenticated = true;
+      sut.setUsername();
 
       expect(sut.username).toEqual('name last_name');
+    });
+
+    it('should set username to empty string for anonymous user', () => {
+      sut.isAuthenticated = false;
+      sut.setUsername();
+
+      expect(sut.username).toEqual('');
     });
   });
 

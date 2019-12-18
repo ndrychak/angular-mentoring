@@ -10,13 +10,21 @@ describe('SearchComponent', () => {
     };
 
     sut = new SearchComponent(coursesService);
+
+    sut.searchChanged$ = {
+      next: jasmine.createSpy('next')
+    };
   });
 
-  describe('#filterCourses', () => {
-    it('should use coursesService to trigger observable event', () => {
-      sut.filterCourses();
+  describe('#onInputChange', () => {
+    it('should trigger observable event', () => {
+      sut.onInputChange({
+        target: {
+          value: 'test'
+        }
+      });
 
-      expect(coursesService.filterCourses).toHaveBeenCalled();
+      expect(sut.searchChanged$.next).toHaveBeenCalledWith('test');
     });
   });
 });

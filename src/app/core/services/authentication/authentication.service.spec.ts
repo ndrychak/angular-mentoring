@@ -1,4 +1,5 @@
 import { AuthService } from './authentication.service';
+import {environment} from '../../../../environments/environment';
 
 describe('AuthService', () => {
   let sut;
@@ -22,6 +23,7 @@ describe('AuthService', () => {
 
   afterEach(() => {
     localStorage.removeItem('userInfo');
+    localStorage.removeItem('token');
   });
 
   describe('#logout', () => {
@@ -40,11 +42,29 @@ describe('AuthService', () => {
     });
   });
 
+  describe('#requestUserInfo', () => {
+    it('should make post request', () => {
+      localStorage.setItem('token', '1234');
+
+      sut.requestUserInfo();
+
+      expect(http.post).toHaveBeenCalledWith(environment.URLS.USER_INFO, {token: '1234'});
+    });
+  });
+
   describe('#getUserInfo', () => {
     it('should return object with email and password', () => {
       localStorage.setItem('userInfo', '{"email": "test", "password": "testPass"}');
 
       expect(sut.getUserInfo()).toEqual({email: 'test', password: 'testPass'});
+    });
+  });
+
+  describe('#getToken', () => {
+    it('should return string', () => {
+      localStorage.setItem('token', '1234');
+
+      expect(sut.getToken()).toEqual('1234');
     });
   });
 });

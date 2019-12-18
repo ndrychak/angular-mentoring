@@ -11,7 +11,9 @@ import {CoursesListModule} from './modules/courses-list/courses-list.module';
 import {AddCourseModule} from './modules/add-course/add-course.module';
 import {LoginModule} from './modules/login/login.module';
 import {SharedModule} from './shared/shared.module';
-import {TokenInterceptorService} from './core/interceptors/token-http-interceptor.service';
+import {TokenInterceptor} from './core/interceptors/token-http.interceptor';
+import {LoaderService} from './core/services/loader/loader.service';
+import {LoaderInterceptor} from './core/interceptors/loader.interceptor';
 
 const angularModules = [
   BrowserModule,
@@ -31,11 +33,18 @@ const customModules = [
 @NgModule({
   declarations: [AppComponent],
   imports: [...angularModules, ...customModules],
-  providers: [{
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi: true
-  }],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptor,
+      multi: true
+    }, {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptor,
+      multi: true
+  },
+    LoaderService
+  ],
   bootstrap: [AppComponent]
 })
 
