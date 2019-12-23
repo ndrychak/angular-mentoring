@@ -4,11 +4,11 @@
       <img class="site-logo" src="assets/logo/logo.png" srcset="assets/logo/logo@2x.png 2x" alt="Video Course">
     </a>
 
-    <nav class="menu" *ngIf="isAuthenticated">
+    <nav class="menu" *ngIf="userInfo$ | async as userInfo">
       <div class="menu-item">
         <span class="user-login">
           <svg-icon-sprite [src]="'user'" [class]="'icon icon-user'"></svg-icon-sprite>
-          Hello, {{username}}
+          Hello, {{userInfo.name?.first}} {{userInfo.name?.last}}
         </span>
       </div>
       <div class="menu-item">

@@ -3,8 +3,7 @@ import {AddCoursePageComponent} from './add-course-page.component';
 describe('AddCoursePageComponent', () => {
   let sut;
   let route;
-  let coursesService;
-  let cd;
+  let store$;
 
   beforeEach(() => {
     route = {
@@ -13,15 +12,12 @@ describe('AddCoursePageComponent', () => {
       }
     };
 
-    coursesService = {
-      filterCourses: jasmine.createSpy('filterCourses')
+    store$ = {
+      select: jasmine.createSpy('select'),
+      dispatch: jasmine.createSpy('dispatch')
     };
 
-    cd = {
-      markForCheck: jasmine.createSpy('markForCheck')
-    };
-
-    sut = new AddCoursePageComponent(route, coursesService, cd);
+    sut = new AddCoursePageComponent(route, store$);
   });
 
   describe('#ngOnInit', () => {

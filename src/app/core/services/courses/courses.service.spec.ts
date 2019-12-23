@@ -1,6 +1,6 @@
 import { CoursesService } from './courses.service';
 import {environment} from '../../../../environments/environment';
-import {INewCourse} from '../../../modules/add-course/models/new-course';
+import {INewCourse} from '../../models/new-course';
 
 describe('CoursesService', () => {
   let sut;

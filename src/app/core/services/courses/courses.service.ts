@@ -1,20 +1,17 @@
 import {Injectable} from '@angular/core';
-import {Observable, Subject} from 'rxjs';
+import {Observable} from 'rxjs';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {ICoursesListItem} from '../../../modules/courses-list/models/courses-list-item';
+import {ICoursesListItem} from '../../models/courses-list-item';
 
-import {INewCourse} from '../../../modules/add-course/models/new-course';
+import {INewCourse} from '../../models/new-course';
 import {environment} from '../../../../environments/environment';
 
 @Injectable()
 
 export class CoursesService {
-  public coursesList$ = new Subject<{courses: ICoursesListItem[]; resetPageCounter?: boolean}>();
-  private textFragment: string;
-
   constructor(private http: HttpClient) { }
 
-  getList(page: number = 0): Observable<ICoursesListItem[]> {
+  getList(page: number = 0, filterByText): Observable<ICoursesListItem[]> {
     const ITEMS_PER_PAGE = 3;
     const startAt = page * ITEMS_PER_PAGE;
     let params = new HttpParams();
@@ -23,8 +20,8 @@ export class CoursesService {
     params = params.append('count', ITEMS_PER_PAGE.toString());
     params = params.append('sort', 'date');
 
-    if (this.textFragment) {
-      params = params.append('textFragment', this.textFragment);
+    if (filterByText) {
+      params = params.append('textFragment', filterByText);
     }
 
     return this.http.get<ICoursesListItem[]>(environment.URLS.COURSES, {params});
@@ -44,27 +41,5 @@ export class CoursesService {
 
   deleteItem(courseId: number) {
     return this.http.delete(environment.URLS.COURSES + courseId);
-  }
-
-  removeItem(courseId: number) {
-    return this.deleteItem(courseId).subscribe(() => {
-      this.getList().subscribe(courses => {
-        this.coursesList$.next({
-          courses,
-          resetPageCounter: true
-        });
-      });
-    });
-  }
-
-  filterCourses(textFragment: string) {
-    this.textFragment = textFragment;
-
-    this.getList().subscribe(courses => {
-      this.coursesList$.next({
-        courses,
-        resetPageCounter: true
-      });
-    });
   }
 }

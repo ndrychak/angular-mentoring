@@ -12,10 +12,9 @@ import {CoursesListItemComponent} from './components/courses-list-item/courses-l
 import {DeleteCoursePopupComponent} from './components/delete-course-popup/delete-course-popup.component';
 
 import {routes} from './courses-list.routing';
-import {CoursesService} from '../../core/services/courses/courses.service';
+import {CoursesService} from '@core/services/courses/courses.service';
 
 import {SharedModule} from '../../shared/shared.module';
-import {CoreModule} from '../../core/core.module';
 
 @NgModule({
   declarations: [
@@ -32,8 +31,7 @@ import {CoreModule} from '../../core/core.module';
     IconSpriteModule,
     MatDialogModule,
     RouterModule.forChild(routes),
-    SharedModule,
-    CoreModule
+    SharedModule
   ],
   providers: [
     CoursesService

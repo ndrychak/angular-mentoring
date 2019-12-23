@@ -1,5 +1,7 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from '../../../core/services/authentication/authentication.service';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+
+import {RootStoreState, UserStoreActions, UserStoreSelectors} from '@core/store';
 
 @Component({
   selector: 'agm-header',
@@ -8,39 +10,16 @@ import {AuthService} from '../../../core/services/authentication/authentication.
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class HeaderComponent implements OnInit, OnDestroy {
-  private userState$;
-  private username: string;
-  private isAuthenticated: boolean;
+export class HeaderComponent implements OnInit {
+  public userInfo$;
 
-  constructor(
-    private authService: AuthService,
-    private cd: ChangeDetectorRef
-  ) {}
+  constructor(private store$: Store<RootStoreState.State>) {}
 
   ngOnInit() {
-    this.userState$ = this.authService.isAuthenticated$.subscribe(isAuth => this.onUserStateChange(isAuth));
-  }
-
-  ngOnDestroy() {
-    this.userState$.unsubscribe();
-  }
-
-  onUserStateChange(isAuth) {
-    this.isAuthenticated = isAuth;
-
-    this.setUsername();
-
-    this.cd.markForCheck();
-  }
-
-  setUsername() {
-    const userInfo = this.authService.getUserInfo();
-
-    this.username = this.isAuthenticated ? `${userInfo.firstName} ${userInfo.lastName}` : '';
+    this.userInfo$ = this.store$.select(UserStoreSelectors.selectUserInfo);
   }
 
   logout() {
-    this.authService.logout();
+    this.store$.dispatch(new UserStoreActions.LogOutAction());
   }
 }

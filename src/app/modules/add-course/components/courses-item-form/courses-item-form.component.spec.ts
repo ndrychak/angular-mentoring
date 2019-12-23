@@ -1,26 +1,21 @@
 import { CoursesItemFormComponent } from './courses-item-form.component';
-import {of} from 'rxjs';
 
 describe('CoursesItemFormComponent', () => {
   let sut;
-  let coursesService;
   let router;
+  let store$;
 
   beforeEach(() => {
-    coursesService = {
-      createItem: jasmine.createSpy('createItem').and.callFake(() => {
-        return of([]);
-      }),
-      updateItem: jasmine.createSpy('updateItem').and.callFake(() => {
-        return of([]);
-      })
-    };
-
     router = {
       navigateByUrl: jasmine.createSpy('navigateByUrl')
     };
 
-    sut = new CoursesItemFormComponent(coursesService, router);
+    store$ = {
+      select: jasmine.createSpy('select'),
+      dispatch: jasmine.createSpy('dispatch')
+    };
+
+    sut = new CoursesItemFormComponent(router, store$);
 
     sut.courseItem = {
       id: 1111,
@@ -53,7 +48,7 @@ describe('CoursesItemFormComponent', () => {
 
       sut.save({value: {}});
 
-      expect(coursesService.createItem).toHaveBeenCalled();
+      expect(store$.dispatch).toHaveBeenCalled();
     });
 
     it('should call updateItem method of courses service', () => {
@@ -61,7 +56,7 @@ describe('CoursesItemFormComponent', () => {
 
       sut.save({value: {}});
 
-      expect(coursesService.updateItem).toHaveBeenCalled();
+      expect(store$.dispatch).toHaveBeenCalled();
     });
   });
 });

@@ -1,37 +1,32 @@
-import { AuthGuard } from './auth.guard';
+import {AuthGuard} from './auth.guard';
 
 describe('AuthGuard', () => {
   let sut;
-  let authService;
   let router;
+  let store$;
 
   beforeEach(() => {
-    authService = {
-      isAuthenticated: jasmine.createSpy('isAuthenticated')
+    store$ = {
+      select: jasmine.createSpy('select'),
+      dispatch: jasmine.createSpy('dispatch')
     };
 
     router = {
       navigateByUrl: jasmine.createSpy('navigateByUrl')
     };
 
-    sut = new AuthGuard(authService, router);
+    sut = new AuthGuard(store$, router);
+
+    sut.checkStoreAuthentication = jasmine.createSpy('checkStoreAuthentication').and.returnValue({
+      pipe: () => {}
+    });
   });
 
   describe('#canActivate', () => {
     it('should return true for authenticated user', () => {
-      authService.isAuthenticated.and.returnValue(true);
+      sut.canActivate();
 
-      sut.canActivate().subscribe((res) => {
-        expect(res).toEqual(true);
-      });
-    });
-
-    it('should return false for not authenticated user', () => {
-      authService.isAuthenticated.and.returnValue(false);
-
-      sut.canActivate().subscribe((res) => {
-        expect(res).toEqual(false);
-      });
+      expect(sut.checkStoreAuthentication).toHaveBeenCalled();
     });
   });
 });

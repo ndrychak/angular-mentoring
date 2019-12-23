@@ -1,10 +1,10 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import {Store} from '@ngrx/store';
 
-import {ICoursesListItem} from '../../../courses-list/models/courses-list-item';
-import {INewCourse} from '../../models/new-course';
-
-import {CoursesService} from '../../../../core/services/courses/courses.service';
+import {ICoursesListItem} from '@core/models/courses-list-item';
+import {INewCourse} from '@core/models/new-course';
+import {CourseItemStoreActions, RootStoreState} from '@core/store';
 
 @Component({
   selector: 'agm-courses-item-form',
@@ -13,7 +13,7 @@ import {CoursesService} from '../../../../core/services/courses/courses.service'
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class CoursesItemFormComponent {
+export class CoursesItemFormComponent implements OnInit {
   @Input() courseItem: ICoursesListItem;
   @Input() isEditForm: boolean;
 
@@ -28,23 +28,23 @@ export class CoursesItemFormComponent {
   };
 
   constructor(
-    private coursesService: CoursesService,
-    private router: Router
-  ) {
+    private router: Router,
+    private store$: Store<RootStoreState.State>
+  ) {}
+
+  ngOnInit(): void {
     this.title = this.isEditForm ? 'Edit course' : 'New course';
   }
 
-  setDuration(duration) {
+  setDuration(duration): void {
     this.form.length = duration;
   }
 
-  setCreationDate(creationDate) {
+  setCreationDate(creationDate): void {
     this.form.date = creationDate;
   }
 
-  save(form) {
-    const action = this.isEditForm ? 'updateItem' : 'createItem';
-
+  save(form): void {
     this.form.name = form.value.title;
     this.form.description = form.value.description;
 
@@ -52,10 +52,10 @@ export class CoursesItemFormComponent {
       this.form.id = this.courseItem.id;
       this.form.isTopRated = this.courseItem.isTopRated;
       this.form.authors = this.courseItem.authors;
-    }
 
-    this.coursesService[action](this.form).subscribe(() => {
-      this.router.navigateByUrl('/courses');
-    });
+      this.store$.dispatch(new CourseItemStoreActions.CourseItemUpdateAction({form: this.form}));
+    } else {
+      this.store$.dispatch(new CourseItemStoreActions.CourseItemCreateAction({form: this.form}));
+    }
   }
 }

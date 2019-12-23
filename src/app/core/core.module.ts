@@ -1,13 +1,12 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 
-import {PipesModule} from './pipes/pipes.module';
-import {DirectivesModule} from './directives/directives.module';
+import {RootStoreModule} from './store';
 
 @NgModule({
-  imports: [CommonModule, PipesModule, DirectivesModule],
+  imports: [CommonModule, RootStoreModule],
   declarations: [],
-  exports: [PipesModule, DirectivesModule],
+  exports: [RootStoreModule],
 })
 
 export class CoreModule { }

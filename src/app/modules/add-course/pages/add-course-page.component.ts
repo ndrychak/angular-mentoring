@@ -1,9 +1,10 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {Store} from '@ngrx/store';
 
-import {ICoursesListItem} from '../../courses-list/models/courses-list-item';
-
-import {CoursesService} from '../../../core/services/courses/courses.service';
+import {ICoursesListItem} from '@core/models/courses-list-item';
+import {RootStoreState, CourseItemStoreActions, CourseItemStoreSelectors} from '@core/store';
 
 @Component({
   selector: 'agm-add-course-page',
@@ -13,24 +14,23 @@ import {CoursesService} from '../../../core/services/courses/courses.service';
 })
 
 export class AddCoursePageComponent implements OnInit {
-  courseItem: ICoursesListItem;
-  isEditForm: boolean;
+  public $courseItem: Observable<ICoursesListItem>;
+  public isEditForm = false;
 
   constructor(
     private route: ActivatedRoute,
-    private coursesService: CoursesService,
-    private cd: ChangeDetectorRef
+    private store$: Store<RootStoreState.State>
   ) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(routeParams => {
       if (routeParams.courseId) {
-        this.coursesService.getItem(Number(routeParams.courseId)).subscribe(course => {
-          this.courseItem = course;
-          this.isEditForm = routeParams.courseId;
+        this.store$.dispatch(new CourseItemStoreActions.CourseItemRequestAction({
+          courseId: Number(routeParams.courseId)
+        }));
 
-          this.cd.markForCheck();
-        });
+        this.$courseItem = this.store$.select(CourseItemStoreSelectors.selectCourseItem);
+        this.isEditForm = true;
       }
     });
   }

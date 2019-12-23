@@ -2,18 +2,19 @@ import { LoginPageComponent } from './login-page.component';
 
 describe('LoginPageComponent', () => {
   let sut;
-  let authService;
+  let store$;
 
   beforeEach(() => {
-    authService = {
-      login: jasmine.createSpy('login')
+    store$ = {
+      select: jasmine.createSpy('select'),
+      dispatch: jasmine.createSpy('dispatch')
     };
 
-    sut = new LoginPageComponent(authService);
+    sut = new LoginPageComponent(store$);
   });
 
   describe('#loginUser', () => {
-    it('should call login method of authService', () => {
+    it('should dispatch event', () => {
       sut.loginUser({
         value: {
           email: 'test@test.com',
@@ -21,10 +22,7 @@ describe('LoginPageComponent', () => {
         }
       });
 
-      expect(authService.login).toHaveBeenCalledWith({
-        email: 'test@test.com',
-        password: 'pass'
-      });
+      expect(store$.dispatch).toHaveBeenCalled();
     });
   });
 });

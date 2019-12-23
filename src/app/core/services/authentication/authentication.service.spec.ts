@@ -1,4 +1,4 @@
-import { AuthService } from './authentication.service';
+import {AuthService} from './authentication.service';
 import {environment} from '../../../../environments/environment';
 
 describe('AuthService', () => {
@@ -36,12 +36,6 @@ describe('AuthService', () => {
     });
   });
 
-  describe('#isAuthenticated', () => {
-    it('should return false when user not authenticated', () => {
-      expect(sut.isAuthenticated()).toEqual(false);
-    });
-  });
-
   describe('#requestUserInfo', () => {
     it('should make post request', () => {
       localStorage.setItem('token', '1234');
@@ -49,22 +43,6 @@ describe('AuthService', () => {
       sut.requestUserInfo();
 
       expect(http.post).toHaveBeenCalledWith(environment.URLS.USER_INFO, {token: '1234'});
-    });
-  });
-
-  describe('#getUserInfo', () => {
-    it('should return object with email and password', () => {
-      localStorage.setItem('userInfo', '{"email": "test", "password": "testPass"}');
-
-      expect(sut.getUserInfo()).toEqual({email: 'test', password: 'testPass'});
-    });
-  });
-
-  describe('#getToken', () => {
-    it('should return string', () => {
-      localStorage.setItem('token', '1234');
-
-      expect(sut.getToken()).toEqual('1234');
     });
   });
 });

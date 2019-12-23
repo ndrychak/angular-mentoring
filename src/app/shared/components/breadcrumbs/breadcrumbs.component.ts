@@ -1,7 +1,8 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 
-import {CoursesService} from '../../../core/services/courses/courses.service';
+import {CourseItemStoreSelectors, RootStoreState} from '@core/store';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'agm-breadcrumbs',
@@ -15,8 +16,8 @@ export class BreadcrumbsComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private coursesService: CoursesService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private store$: Store<RootStoreState.State>
   ) {}
 
   ngOnInit() {
@@ -50,10 +51,12 @@ export class BreadcrumbsComponent implements OnInit {
 
     this.route.params.subscribe(routerParams => {
       if (routerParams.courseId) {
-          this.coursesService.getItem(Number(routerParams.courseId)).subscribe(courseItem => {
+        this.store$.select(CourseItemStoreSelectors.selectCourseItem).subscribe(courseItem => {
+          if (courseItem) {
             breadcrumbs[breadcrumbIndex].title = courseItem.name;
             this.cd.markForCheck();
-          });
+          }
+        });
       }
     });
   }

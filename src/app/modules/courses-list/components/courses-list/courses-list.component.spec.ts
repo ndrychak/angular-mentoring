@@ -3,9 +3,9 @@ import { of } from 'rxjs';
 
 describe('CoursesListComponent', () => {
   let sut;
-  let coursesService;
   let dialog;
   let cd;
+  let store$;
 
   const deleteCourseId = 3;
 
@@ -20,14 +20,6 @@ describe('CoursesListComponent', () => {
   };
 
   beforeEach(() => {
-    coursesService = {
-      updateItem: jasmine.createSpy('updateItem'),
-      removeItem: jasmine.createSpy('removeItem'),
-      getList: jasmine.createSpy('getList').and.callFake(() => {
-        return of([]);
-      })
-    };
-
     dialog = {
       open: jasmine.createSpy('open').and
         .returnValue({
@@ -41,7 +33,12 @@ describe('CoursesListComponent', () => {
       markForCheck: jasmine.createSpy('markForCheck')
     };
 
-    sut = new CoursesListComponent(coursesService, dialog, cd);
+    store$ = {
+      select: jasmine.createSpy('select'),
+      dispatch: jasmine.createSpy('dispatch')
+    };
+
+    sut = new CoursesListComponent(dialog, cd, store$);
   });
 
   describe('#onDeletedCourse', () => {
@@ -54,17 +51,15 @@ describe('CoursesListComponent', () => {
     it('should remove item', () => {
       sut.onDeletedCourse(coursesListItem);
 
-      expect(coursesService.removeItem).toHaveBeenCalledWith(deleteCourseId);
+      expect(store$.dispatch).toHaveBeenCalled();
     });
   });
 
   describe('#loadMore', () => {
     it('should call coursesService getList method', () => {
-      sut.page = 3;
-
       sut.loadMore();
 
-      expect(coursesService.getList).toHaveBeenCalledWith(3);
+      expect(store$.dispatch).toHaveBeenCalled();
     });
   });
 });

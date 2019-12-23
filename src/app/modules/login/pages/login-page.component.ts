@@ -1,5 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {AuthService} from '../../../core/services/authentication/authentication.service';
+import {Store} from '@ngrx/store';
+
+import {RootStoreState, UserStoreActions} from '@core/store';
 
 @Component({
   selector: 'agm-page',
@@ -10,12 +12,14 @@ import {AuthService} from '../../../core/services/authentication/authentication.
 
 export class LoginPageComponent {
 
-  constructor(private authService: AuthService) { }
+  constructor(private store$: Store<RootStoreState.State>) { }
 
   loginUser(form) {
-    this.authService.login({
+    const payload = {
       email: form.value.email,
       password: form.value.password
-    });
+    };
+
+    this.store$.dispatch(new UserStoreActions.LoginRequestAction(payload));
   }
 }

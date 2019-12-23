@@ -1,17 +1,19 @@
-<section class="courses-list" *ngIf="currentCourses.length; else noResults">
-  <agm-courses-list-item
-    *ngFor="let coursesListItem of currentCourses | orderBy: 'date'"
-    [coursesListItem]="coursesListItem"
-    (deletedCourse)="onDeletedCourse($event)">
-  </agm-courses-list-item>
-</section>
+<div *ngIf="coursesList$ | async as coursesList">
+  <section class="courses-list" *ngIf="coursesList.length; else noResults;">
+    <agm-courses-list-item
+      *ngFor="let coursesListItem of coursesList | orderBy: 'date'"
+      [coursesListItem]="coursesListItem"
+      (deletedCourse)="onDeletedCourse($event)">
+    </agm-courses-list-item>
+  </section>
 
-<ng-template #noResults>
-  <p class="no-results">No data. Feel free to add new course</p>
-</ng-template>
+  <ng-template #noResults>
+    <p class="no-results">No data. Feel free to add new course</p>
+  </ng-template>
 
-<button *ngIf="currentCourses.length"
-        class="panel courses-load-more"
-        (click)="loadMore()">
-  <span class="courses-load-more-text">load more</span>
-</button>
+  <button *ngIf="coursesList.length"
+          class="panel courses-load-more"
+          (click)="loadMore()">
+    <span class="courses-load-more-text">load more</span>
+  </button>
+</div>
