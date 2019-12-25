@@ -9,12 +9,11 @@ import {CoursesItemFormComponent} from './components/courses-item-form/courses-i
 import {DurationInputComponent} from './components/duration-input/duration-input.component';
 import {DateInputComponent} from './components/date-input/date-input.component';
 
-import {CoursesService} from '../../core/services/courses/courses.service';
+import {CoursesService} from '@core/services/courses/courses.service';
 
 import {routes} from './add-course.routing';
 
 import {SharedModule} from '../../shared/shared.module';
-import {CoreModule} from '../../core/core.module';
 
 @NgModule({
   declarations: [
@@ -32,8 +31,7 @@ import {CoreModule} from '../../core/core.module';
     FormsModule,
     IconSpriteModule,
     RouterModule.forChild(routes),
-    SharedModule,
-    CoreModule
+    SharedModule
   ],
   exports: [
     AddCoursePageComponent

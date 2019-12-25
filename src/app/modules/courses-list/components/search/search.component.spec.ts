@@ -2,14 +2,15 @@ import { SearchComponent } from './search.component';
 
 describe('SearchComponent', () => {
   let sut;
-  let coursesService;
+  let store$;
 
   beforeEach(() => {
-    coursesService = {
-      filterCourses: jasmine.createSpy('filterCourses')
+    store$ = {
+      select: jasmine.createSpy('select'),
+      dispatch: jasmine.createSpy('dispatch')
     };
 
-    sut = new SearchComponent(coursesService);
+    sut = new SearchComponent(store$);
 
     sut.searchChanged$ = {
       next: jasmine.createSpy('next')

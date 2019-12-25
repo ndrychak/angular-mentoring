@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {Subject} from 'rxjs';
 
-import {LoaderService} from '../../../core/services/loader/loader.service';
+import {LoaderService} from '@core/services/loader/loader.service';
 
 @Component({
   selector: 'agm-loader',

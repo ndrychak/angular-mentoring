@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import {MatDialog, MatDialogConfig} from '@angular/material';
+import {Store} from '@ngrx/store';
+import {Observable} from 'rxjs';
 
-import {ICoursesListItem} from '../../models/courses-list-item';
-
-import {CoursesService} from '../../../../core/services/courses/courses.service';
-
+import {ICoursesListItem} from '@core/models/courses-list-item';
+import {CoursesStoreActions, CoursesStoreSelectors, RootStoreState} from '@core/store';
 import {DeleteCoursePopupComponent} from '../delete-course-popup/delete-course-popup.component';
 
 @Component({
@@ -15,48 +15,28 @@ import {DeleteCoursePopupComponent} from '../delete-course-popup/delete-course-p
 })
 
 export class CoursesListComponent implements OnInit, OnDestroy {
-  private page: number;
-  private coursesList$;
-
-  currentCourses = [];
+  public coursesList$: Observable<ICoursesListItem[]>;
 
   constructor(
-    private coursesService: CoursesService,
     private dialog: MatDialog,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private store$: Store<RootStoreState.State>
   ) { }
 
-  ngOnInit() {
-    this.page = 0;
+  ngOnInit(): void {
+    this.store$.dispatch(new CoursesStoreActions.CoursesRequestAction({
+      page: 0
+    }));
 
-    this.loadCourses();
-
-    this.coursesList$ = this.coursesService.coursesList$.subscribe(data => {
-      this.currentCourses = data.courses;
-
-      if (data.resetPageCounter) {
-        this.page = 0;
-      }
-
-      this.cd.markForCheck();
-    });
+    this.coursesList$ = this.store$.select(CoursesStoreSelectors.selectCoursesList);
   }
 
   ngOnDestroy() {
-    this.coursesList$.unsubscribe();
+    this.store$.dispatch(new CoursesStoreActions.CoursesClearAction());
   }
 
-  loadMore() {
-    this.loadCourses(this.page);
-  }
-
-  loadCourses(page: number = 0) {
-    this.coursesService.getList(page).subscribe(courses => {
-      this.currentCourses = this.currentCourses.concat(courses);
-      this.cd.markForCheck();
-    });
-
-    this.page++;
+  loadMore(): void {
+    this.store$.dispatch(new CoursesStoreActions.CoursesRequestAction());
   }
 
   onDeletedCourse(data: ICoursesListItem): void {
@@ -74,7 +54,9 @@ export class CoursesListComponent implements OnInit, OnDestroy {
 
     dialogRef.afterClosed().subscribe(courseData => {
       if (courseData && courseData.deleteCourseId) {
-        this.coursesService.removeItem(courseData.deleteCourseId);
+        this.store$.dispatch(new CoursesStoreActions.CourseDeleteAction({
+          courseId: courseData.deleteCourseId
+        }));
       }
     });
   }

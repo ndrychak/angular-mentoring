@@ -1,7 +1,8 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {CoursesService} from '../../../../core/services/courses/courses.service';
 import {Subject} from 'rxjs';
 import {debounceTime, distinctUntilChanged, filter} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
+import {CoursesStoreActions, RootStoreState} from '@core/store';
 
 @Component({
   selector: 'agm-search',
@@ -13,7 +14,7 @@ import {debounceTime, distinctUntilChanged, filter} from 'rxjs/operators';
 export class SearchComponent implements OnInit, OnDestroy {
   private searchChanged$ = new Subject<string>();
 
-  constructor(private coursesService: CoursesService) { }
+  constructor(private store$: Store<RootStoreState.State>) { }
 
   ngOnInit() {
     this.searchChanged$
@@ -23,7 +24,10 @@ export class SearchComponent implements OnInit, OnDestroy {
         distinctUntilChanged()
       )
       .subscribe((value) => {
-        this.coursesService.filterCourses(value);
+        this.store$.dispatch(new CoursesStoreActions.CoursesRequestAction({
+          filterBy: value,
+          page: 0
+        }));
       });
   }
 

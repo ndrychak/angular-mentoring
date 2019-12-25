@@ -11,9 +11,11 @@ import {CoursesListModule} from './modules/courses-list/courses-list.module';
 import {AddCourseModule} from './modules/add-course/add-course.module';
 import {LoginModule} from './modules/login/login.module';
 import {SharedModule} from './shared/shared.module';
-import {TokenInterceptor} from './core/interceptors/token-http.interceptor';
-import {LoaderService} from './core/services/loader/loader.service';
-import {LoaderInterceptor} from './core/interceptors/loader.interceptor';
+import {TokenInterceptor} from '@core/interceptors/token-http.interceptor';
+import {LoaderService} from '@core/services/loader/loader.service';
+import {LoaderInterceptor} from '@core/interceptors/loader.interceptor';
+
+import {CoreModule} from '@core/core.module';
 
 const angularModules = [
   BrowserModule,
@@ -28,6 +30,7 @@ const customModules = [
   CoursesListModule,
   AddCourseModule,
   LoginModule,
+  CoreModule
 ];
 
 @NgModule({
