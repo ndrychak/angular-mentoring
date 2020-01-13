@@ -1,13 +1,22 @@
 import {NgModule} from '@angular/core';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {IconSpriteModule} from 'ng-svg-icon-sprite';
+import {
+  MatAutocompleteModule,
+  MatChipsModule,
+  MatDatepickerModule,
+  MatFormFieldModule,
+  MatIconModule,
+  MatNativeDateModule
+} from '@angular/material';
 
 import {AddCoursePageComponent} from './pages/add-course-page.component';
 import {CoursesItemFormComponent} from './components/courses-item-form/courses-item-form.component';
 import {DurationInputComponent} from './components/duration-input/duration-input.component';
 import {DateInputComponent} from './components/date-input/date-input.component';
+import {AuthorsInputComponent} from './components/authors-input/authors-input.component';
 
 import {CoursesService} from '@core/services/courses/courses.service';
 
@@ -20,10 +29,12 @@ import {SharedModule} from '../../shared/shared.module';
     AddCoursePageComponent,
     CoursesItemFormComponent,
     DurationInputComponent,
-    DateInputComponent
+    DateInputComponent,
+    AuthorsInputComponent
   ],
   providers: [
-    CoursesService
+    CoursesService,
+    MatDatepickerModule
   ],
   imports: [
     CommonModule,
@@ -31,7 +42,14 @@ import {SharedModule} from '../../shared/shared.module';
     FormsModule,
     IconSpriteModule,
     RouterModule.forChild(routes),
-    SharedModule
+    SharedModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatChipsModule,
+    MatIconModule,
+    MatAutocompleteModule
   ],
   exports: [
     AddCoursePageComponent

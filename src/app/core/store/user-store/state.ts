@@ -4,12 +4,12 @@ export interface State {
   token: string | null;
   userInfo: IUser | null;
   isAuthenticated: boolean;
-  error: string;
+  isLoginFailed: boolean;
 }
 
 export const initialState: State = {
   token: null,
   userInfo: null,
   isAuthenticated: false,
-  error: null
+  isLoginFailed: false
 };

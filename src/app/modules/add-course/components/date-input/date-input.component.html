@@ -3,11 +3,15 @@
     Date:
     <span class="form-required">*required</span>
   </label>
-  <input id="courseDate"
-         type="date"
-         class="form-input"
-         name="duration"
-         [ngModel]="date | date:'yyyy-MM-dd'"
-         (ngModelChange)="modelChanged($event)"
-         required />
+  <div class="form-item-with-icon">
+    <input
+      id="courseDate"
+      class="form-input"
+      (dateChange)="changeDate($event)"
+      [matDatepicker]="courseDatePicker"
+      [value]="formControl?.value"
+      [ngClass]="{'error': formControl.dirty && formControl.errors}" />
+    <mat-datepicker-toggle class="form-item-icon" [for]="courseDatePicker"></mat-datepicker-toggle>
+    <mat-datepicker #courseDatePicker></mat-datepicker>
+  </div>
 </div>

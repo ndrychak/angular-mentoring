@@ -9,7 +9,8 @@ export const environment = {
   URLS: {
     LOGIN: `${host}/auth/login`,
     USER_INFO: `${host}/auth/userinfo`,
-    COURSES: `${host}/courses/`
+    COURSES: `${host}/courses/`,
+    AUTHORS: `${host}/authors`
   }
 };
 

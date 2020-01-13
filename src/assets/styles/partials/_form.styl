@@ -5,12 +5,26 @@
   font 600 24px/30px font-sans-pro
   color map-get(colors, 'dark')
   margin 0 0 18px 0
+  display flex
+  align-items center
+  justify-content space-between
+
+.form-error
+  font 12px/18px font-sans-pro
+  color map-get(colors, 'orange-red')
+  margin-left 10px
+  & + .form-required
+    display none
+
+.form-required
+  font 12px/18px font-sans-pro
+  color map-get(colors, 'steel')
 
 .form-item
   margin-bottom 18px
   position relative
   &.small
-    max-width 150px
+    max-width 170px
 
 .form-label
   margin-bottom 8px
@@ -19,9 +33,21 @@
   display flex
   justify-content space-between
 
-.form-required
-  font 12px/18px font-sans-pro
-  color map-get(colors, 'steel')
+.form-item-with-icon
+  position relative
+
+.form-item-icon
+  position absolute
+  top 4px
+  right 4px
+  .mat-icon-button
+    width 30px
+    height 30px
+    line-height 30px
+  .mat-datepicker-toggle-default-icon
+    width 20px
+    height 20px
+    fill map-get(colors, 'silver')
 
 .form-input
   padding 6px 12px
@@ -31,9 +57,11 @@
   color: map-get(colors, 'slate-grey')
   width 100%
   display block
+  &.error
+    border-color map-get(colors, 'orange-red')
   /textarea
     height 110px
-    resize none
+    resize vertical
 
 .form-buttons
   display flex

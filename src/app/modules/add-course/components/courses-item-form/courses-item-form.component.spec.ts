@@ -1,9 +1,10 @@
-import { CoursesItemFormComponent } from './courses-item-form.component';
+import {CoursesItemFormComponent} from './courses-item-form.component';
 
 describe('CoursesItemFormComponent', () => {
   let sut;
   let router;
   let store$;
+  let formBuilder;
 
   beforeEach(() => {
     router = {
@@ -15,7 +16,11 @@ describe('CoursesItemFormComponent', () => {
       dispatch: jasmine.createSpy('dispatch')
     };
 
-    sut = new CoursesItemFormComponent(router, store$);
+    formBuilder = {
+      group: jasmine.createSpy('group')
+    };
+
+    sut = new CoursesItemFormComponent(router, store$, formBuilder);
 
     sut.courseItem = {
       id: 1111,
@@ -24,22 +29,6 @@ describe('CoursesItemFormComponent', () => {
     };
 
     sut.form = {};
-  });
-
-  describe('#setDuration', () => {
-    it('should set form property: duration', () => {
-      sut.setDuration(12);
-
-      expect(sut.form.length).toEqual(12);
-    });
-  });
-
-  describe('#setCreationDate', () => {
-    it('should set form property: creationDate', () => {
-      sut.setCreationDate('2019-11-05');
-
-      expect(sut.form.date).toEqual('2019-11-05');
-    });
   });
 
   describe('#save', () => {

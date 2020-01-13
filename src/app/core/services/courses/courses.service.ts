@@ -5,6 +5,7 @@ import {ICoursesListItem} from '../../models/courses-list-item';
 
 import {INewCourse} from '../../models/new-course';
 import {environment} from '../../../../environments/environment';
+import {IAuthor} from '@core/models/author';
 
 @Injectable()
 
@@ -41,5 +42,9 @@ export class CoursesService {
 
   deleteItem(courseId: number) {
     return this.http.delete(environment.URLS.COURSES + courseId);
+  }
+
+  getAuthors() {
+    return this.http.get<IAuthor[]>(environment.URLS.AUTHORS);
   }
 }
