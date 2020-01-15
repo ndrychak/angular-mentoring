@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {MatDialogModule} from '@angular/material';
 import {RouterModule} from '@angular/router';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {IconSpriteModule} from 'ng-svg-icon-sprite';
 
 import {CoursesPageComponent} from './pages/courses-page.component';
@@ -24,15 +24,16 @@ import {SharedModule} from '../../shared/shared.module';
     DeleteCoursePopupComponent,
     CoursesPageComponent,
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FormsModule,
-    IconSpriteModule,
-    MatDialogModule,
-    RouterModule.forChild(routes),
-    SharedModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule,
+        IconSpriteModule,
+        MatDialogModule,
+        RouterModule.forChild(routes),
+        SharedModule,
+        ReactiveFormsModule
+    ],
   providers: [
     CoursesService
   ],

@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
-import {Subject} from 'rxjs';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {debounceTime, distinctUntilChanged, filter} from 'rxjs/operators';
 import {Store} from '@ngrx/store';
 import {CoursesStoreActions, RootStoreState} from '@core/store';
+import {FormControl} from '@angular/forms';
 
 @Component({
   selector: 'agm-search',
@@ -11,31 +11,21 @@ import {CoursesStoreActions, RootStoreState} from '@core/store';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class SearchComponent implements OnInit, OnDestroy {
-  private searchChanged$ = new Subject<string>();
+export class SearchComponent implements OnInit {
+  public searchValue = new FormControl('');
 
   constructor(private store$: Store<RootStoreState.State>) { }
 
   ngOnInit() {
-    this.searchChanged$
-      .pipe(
-        debounceTime(500),
-        filter(value => value.length >= 3 || value.length === 0),
-        distinctUntilChanged()
-      )
-      .subscribe((value) => {
-        this.store$.dispatch(new CoursesStoreActions.CoursesRequestAction({
-          filterBy: value,
-          page: 0
-        }));
-      });
-  }
-
-  ngOnDestroy() {
-    this.searchChanged$.unsubscribe();
-  }
-
-  onInputChange($event) {
-    this.searchChanged$.next($event.target.value);
+    this.searchValue.valueChanges.pipe(
+      debounceTime(500),
+      filter(value => value.length >= 3 || value.length === 0),
+      distinctUntilChanged()
+    ).subscribe((value: string) => {
+      this.store$.dispatch(new CoursesStoreActions.CoursesRequestAction({
+        filterBy: value,
+        page: 0
+      }));
+    });
   }
 }

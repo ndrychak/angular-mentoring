@@ -16,16 +16,4 @@ describe('SearchComponent', () => {
       next: jasmine.createSpy('next')
     };
   });
-
-  describe('#onInputChange', () => {
-    it('should trigger observable event', () => {
-      sut.onInputChange({
-        target: {
-          value: 'test'
-        }
-      });
-
-      expect(sut.searchChanged$.next).toHaveBeenCalledWith('test');
-    });
-  });
 });

@@ -1,38 +1,43 @@
-<form class="form panel" #courseForm="ngForm">
+<form class="form panel" [formGroup]="form">
   <h1 class="form-title">{{title}}</h1>
 
   <div class="form-item">
     <label for="courseTitle" class="form-label">
       Title:
+      <span class="form-error" *ngIf="form.get('name').dirty && form.get('name').errors?.maxlength">
+        Maximum 50 characters
+      </span>
       <span class="form-required">*required</span>
     </label>
-    <input id="courseTitle" type="text" class="form-input" name="title" [ngModel]="courseItem?.name" required />
+    <input
+      id="courseTitle"
+      type="text"
+      class="form-input"
+      formControlName="name"
+      [ngClass]="{'error': form.get('name').dirty && form.get('name').errors}" />
   </div>
 
   <div class="form-item">
     <label for="courseInfo" class="form-label">
       Description:
+      <span class="form-error" *ngIf="form.get('description').dirty && form.get('description').errors?.maxlength">
+        Maximum 500 characters
+      </span>
       <span class="form-required">*required</span>
     </label>
-    <textarea id="courseInfo" class="form-input" name="description" [ngModel]="courseItem?.description" required>
+    <textarea id="courseInfo"
+              class="form-input"
+              formControlName="description"
+              [ngClass]="{'error': form.get('description').dirty && form.get('description').errors}">
     </textarea>
   </div>
 
-  <agm-duration-input
-    [duration]="courseItem?.length"
-    (durationValue)="setDuration($event)">
-  </agm-duration-input>
-  <agm-date-input
-    [date]="courseItem?.date"
-    (dateValue)="setCreationDate($event)"
-  ></agm-date-input>
+  <agm-duration-input [formControl]="form.controls['length']"></agm-duration-input>
+  <agm-date-input [formControl]="form.controls['date']"></agm-date-input>
+  <agm-authors-input [formControl]="form.controls['authors']"></agm-authors-input>
 
   <div class="form-buttons">
-    <a class="button-style-cancel" routerLink="/courses">
-      Cancel
-    </a>
-    <button class="button-style-primary" type="button" (click)="save(courseForm)" [disabled]="courseForm.invalid">
-      Save
-    </button>
+    <a class="button-style-cancel" routerLink="/courses">Cancel</a>
+    <button class="button-style-primary" type="button" [disabled]="form.invalid" (click)="save()">Save</button>
   </div>
 </form>

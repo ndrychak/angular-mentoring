@@ -1,6 +1,5 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-
 import {CourseItemStoreSelectors, RootStoreState} from '@core/store';
 import {Store} from '@ngrx/store';
 

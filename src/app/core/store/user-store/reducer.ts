@@ -6,19 +6,19 @@ export function featureReducer(state = initialState, action: Actions): State {
     case ActionTypes.LOGIN_REQUEST:
       return {
         ...state,
-        error: null
+        isLoginFailed: false
       };
     case ActionTypes.LOGIN_SUCCESS:
       return {
         ...state,
         token: action.payload.token,
-        error: null,
+        isLoginFailed: null,
         isAuthenticated: true
       };
     case ActionTypes.LOGIN_FAILURE:
       return {
         ...state,
-        error: action.payload.error,
+        isLoginFailed: true,
         isAuthenticated: false
       };
     case ActionTypes.USER_INFO_RECEIVED:

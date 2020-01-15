@@ -1,15 +1,14 @@
 <div class="form-item small">
   <label for="courseDuration" class="form-label">
     Duration:
+    <span class="form-error" *ngIf="formControl.dirty && formControl.errors?.number">Enter valid number</span>
     <span class="form-required">*required</span>
   </label>
   <input id="courseDuration"
-         type="number"
+         type="text"
          class="form-input"
-         name="duration"
-         min="1"
-         [(ngModel)]="duration"
-         (ngModelChange)="modelChanged($event)"
-         required />
-  <span class="duration-value">{{duration | duration}}</span>
+         (keyup)="changeDuration($event)"
+         [value]="formControl?.value"
+         [ngClass]="{'error': formControl.dirty && formControl.errors}" />
+  <span class="duration-value" *ngIf="!formControl.errors">{{formControl.value | duration}}</span>
 </div>

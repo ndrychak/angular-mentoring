@@ -1,7 +1,8 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {RootStoreState, UserStoreActions, UserStoreSelectors} from '@core/store';
 import {Store} from '@ngrx/store';
-
-import {RootStoreState, UserStoreActions} from '@core/store';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'agm-page',
@@ -10,16 +11,30 @@ import {RootStoreState, UserStoreActions} from '@core/store';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class LoginPageComponent {
+export class LoginPageComponent implements OnInit {
+  public loginForm: FormGroup;
+  public error$: Observable<boolean>;
 
-  constructor(private store$: Store<RootStoreState.State>) { }
+  constructor(
+    private store$: Store<RootStoreState.State>,
+    private formBuilder: FormBuilder
+  ) { }
 
-  loginUser(form) {
-    const payload = {
-      email: form.value.email,
-      password: form.value.password
-    };
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
 
-    this.store$.dispatch(new UserStoreActions.LoginRequestAction(payload));
+    this.error$ = this.store$.select(UserStoreSelectors.isLoginFailedSelect);
+  }
+
+  onFormSubmit() {
+    if (this.loginForm.valid) {
+      this.store$.dispatch(new UserStoreActions.LoginRequestAction({
+        email: this.loginForm.value.email,
+        password: this.loginForm.value.password
+      }));
+    }
   }
 }

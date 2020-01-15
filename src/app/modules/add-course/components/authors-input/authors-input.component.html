@@ -1,0 +1,30 @@
+<div class="form-item form-item-authors">
+  <label for="courseAuthors" class="form-label">
+    Authors:
+    <span class="form-required">*required</span>
+  </label>
+
+  <div class="form-input" [ngClass]="{'error': formControl.dirty && formControl.errors}">
+    <mat-form-field>
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let author of formControl.value; let idx = index" [removable]="true" (removed)="remove(idx)">
+          {{author.name}}
+          <button matChipRemove></button>
+        </mat-chip>
+        <input id="courseAuthors"
+               autocomplete="off"
+               size="10"
+               [formControl]="filterInputControl"
+               [value]="filterInputControl.value"
+               [matChipInputFor]="chipList"
+               (matChipInputTokenEnd)="add($event)"
+               [matAutocomplete]="auto">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let authorSuggest of filteredAuthors" [value]="authorSuggest.name">
+          {{authorSuggest.name}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+</div>

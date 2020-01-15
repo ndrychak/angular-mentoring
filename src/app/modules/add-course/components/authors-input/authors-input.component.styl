@@ -1,0 +1,58 @@
+@import "_variables.styl"
+@import "_mixins.styl"
+
+.form-item-authors
+  max-width 315px
+  ::ng-deep .mat-form-field-infix
+    margin 0
+    width 100%
+    padding 0
+    border 0
+  ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper
+    padding 0
+  ::ng-deep .mat-chip-list-wrapper
+    margin 0
+  ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-underline
+    display none
+  ::ng-deep .mat-chip-list-wrapper input.mat-input-element
+    margin 0 6px
+    height 30px
+    width auto
+    flex auto
+
+.form-input
+  padding 3px
+
+.mat-chip.mat-standard-chip .mat-chip-remove
+  background transparent
+  opacity 1
+  position relative
+  outline none
+
+.mat-chip.mat-standard-chip .mat-chip-remove::before,
+.mat-chip.mat-standard-chip .mat-chip-remove::after
+  position absolute
+  content ''
+  height 10px
+  width 1px
+  top 4px
+  right 10px
+  background-color map-get(colors, 'steel')
+
+.mat-chip.mat-standard-chip .mat-chip-remove::before
+  transform rotate(45deg)
+
+.mat-chip.mat-standard-chip .mat-chip-remove::after
+  transform: rotate(-45deg)
+
+.mat-form-field
+  width 100%
+
+.mat-chip.mat-standard-chip
+  background map-get(colors, 'pale-grey')
+  color map-get(colors, 'steel')
+  font 12px/14px font-sans-pro
+  min-height 24px
+  padding 3px 0 3px 12px
+  margin 3px
+  border-radius 3px

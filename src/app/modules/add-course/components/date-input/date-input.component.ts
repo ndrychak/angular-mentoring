@@ -1,23 +1,55 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input} from '@angular/core';
+import {ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 @Component({
   selector: 'agm-date-input',
   templateUrl: './date-input.component.html',
   styleUrls: ['./date-input.component.styl'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => DateInputComponent),
+    multi: true
+  }, {
+    provide: NG_VALIDATORS,
+    useExisting: DateInputComponent,
+    multi: true
+  }]
 })
 
-export class DateInputComponent implements OnChanges {
-  @Input() date: string;
-  @Output() dateValue = new EventEmitter<string>();
+export class DateInputComponent implements ControlValueAccessor {
+  @Input() formControl: FormControl;
 
-  constructor() { }
+  constructor(private cd: ChangeDetectorRef) {}
 
-  ngOnChanges() {
-    this.dateValue.emit(this.date);
+  changeDate($event) {
+    this.writeValue($event.target.value);
+    this.onTouched();
   }
 
-  modelChanged(date) {
-    this.dateValue.emit(date);
+  validate(control: FormControl) {
+    this.cd.markForCheck();
+
+    if (!control.value) {
+      return {
+        invalid: true,
+        required: true
+      };
+    }
+  }
+
+  onChange = (value: any) => {};
+  onTouched = () => {};
+
+  registerOnChange(fn) {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(fn) {
+    this.onTouched = fn;
+  }
+
+  writeValue(value: any) {
+    this.onChange(value);
   }
 }

@@ -7,7 +7,7 @@ export enum ActionTypes {
   COURSE_ITEM_REQUEST = '[COURSE_ITEM] course item request',
   COURSE_ITEM_LOADED = '[COURSE_ITEM] course item loaded',
   COURSE_ITEM_UPDATE = '[COURSE_ITEM] course item update',
-  COURSE_ITEM_CREATE = '[COURSE_ITEM] course item create'
+  COURSE_ITEM_CREATE = '[COURSE_ITEM] course item create',
 }
 
 export class CourseItemRequestAction implements Action {

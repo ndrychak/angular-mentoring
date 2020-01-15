@@ -3,6 +3,7 @@ import { LoginPageComponent } from './login-page.component';
 describe('LoginPageComponent', () => {
   let sut;
   let store$;
+  let formBuilder;
 
   beforeEach(() => {
     store$ = {
@@ -10,20 +11,11 @@ describe('LoginPageComponent', () => {
       dispatch: jasmine.createSpy('dispatch')
     };
 
-    sut = new LoginPageComponent(store$);
-  });
+    formBuilder = {
+      group: jasmine.createSpy('group')
+    };
 
-  describe('#loginUser', () => {
-    it('should dispatch event', () => {
-      sut.loginUser({
-        value: {
-          email: 'test@test.com',
-          password: 'pass'
-        }
-      });
-
-      expect(store$.dispatch).toHaveBeenCalled();
-    });
+    sut = new LoginPageComponent(store$, formBuilder);
   });
 });
 

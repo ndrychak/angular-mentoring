@@ -20,7 +20,7 @@ export class UserStoreEffects {
         .login(action.payload.email, action.payload.password)
         .pipe(
           map((data: {token: string}) => new featureActions.LoginSuccessAction({ token: data.token })),
-          catchError(error => of(new featureActions.LoginFailureAction({ error })))
+          catchError(() => of(new featureActions.LoginFailureAction()))
         )
     )
   );

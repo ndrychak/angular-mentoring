@@ -1,3 +1,5 @@
+import {IAuthor} from '@core/models/author';
+
 export interface ICoursesListItem {
   id: number;
   name: string;
@@ -5,5 +7,5 @@ export interface ICoursesListItem {
   length: number;
   description: string;
   isTopRated: boolean;
-  authors: Array<any>; // @todo AUTHORSMODEL
+  authors: IAuthor[];
 }
