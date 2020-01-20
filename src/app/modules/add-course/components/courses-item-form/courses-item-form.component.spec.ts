@@ -5,6 +5,7 @@ describe('CoursesItemFormComponent', () => {
   let router;
   let store$;
   let formBuilder;
+  let translate;
 
   beforeEach(() => {
     router = {
@@ -20,7 +21,12 @@ describe('CoursesItemFormComponent', () => {
       group: jasmine.createSpy('group')
     };
 
-    sut = new CoursesItemFormComponent(router, store$, formBuilder);
+    translate = {
+      get: jasmine.createSpy('get'),
+      onLangChange: jasmine.createSpy('onLangChange')
+    };
+
+    sut = new CoursesItemFormComponent(router, store$, formBuilder, translate);
 
     sut.courseItem = {
       id: 1111,

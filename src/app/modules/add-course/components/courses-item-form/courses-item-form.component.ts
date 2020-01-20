@@ -5,6 +5,7 @@ import {Store} from '@ngrx/store';
 import {ICoursesListItem} from '@core/models/courses-list-item';
 import {CourseItemStoreActions, RootStoreState} from '@core/store';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
   selector: 'agm-courses-item-form',
@@ -23,10 +24,11 @@ export class CoursesItemFormComponent implements OnInit, OnChanges {
   constructor(
     private router: Router,
     private store$: Store<RootStoreState.State>,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public translate: TranslateService
   ) {}
 
-  ngOnChanges() {
+  ngOnChanges(): void {
     if (this.form && this.courseItem) {
       this.form.setValue({
         name: this.courseItem.name,
@@ -55,7 +57,13 @@ export class CoursesItemFormComponent implements OnInit, OnChanges {
       id: null
     });
 
-    this.title = this.isEditForm ? 'Edit course' : 'New course';
+    this.translate.get(this.isEditForm ? 'COURSE.EDIT_COURSE' : 'COURSE.NEW_COURSE').subscribe(res => {
+      this.title = res;
+    });
+
+    this.translate.onLangChange.subscribe(event => {
+      this.title = event.translations.COURSE[this.isEditForm ? 'EDIT_COURSE' : 'NEW_COURSE'];
+    });
   }
 
   save(): void {

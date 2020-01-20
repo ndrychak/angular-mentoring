@@ -2,37 +2,37 @@
   <div class="panel login-wrapper">
     <form class="form" [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
       <p class="form-title">
-        Login <span *ngIf="error$ | async" class="form-error">Wrong e-mail or password</span>
+        {{ 'LOGIN_FORM.TITLE' | translate }} <span *ngIf="error$ | async" class="form-error">{{ 'VALIDATION.LOGIN_FORM_INVALID' | translate }}</span>
       </p>
 
       <div class="form-item">
         <label for="userEmail" class="form-label">
-          E-mail: <span class="form-required">*required</span>
+          {{ 'LOGIN_FORM.EMAIL' | translate }}: <span class="form-required">{{ 'VALIDATION.REQUIRED' | translate }}</span>
         </label>
         <input
           id="userEmail"
           type="email"
           class="form-input"
           formControlName="email"
-          [ngClass]="{'error': loginForm.get('email').touched && loginForm.get('email').errors}" />
+          [ngClass]="{'error': loginForm.get('email').touched && loginForm.get('email').errors || (error$ | async)}" />
       </div>
 
       <div class="form-item">
         <label for="userPassword" class="form-label">
-          Password: <span class="form-required">*required</span>
+          {{ 'LOGIN_FORM.PASSWORD' | translate }}: <span class="form-required">{{ 'VALIDATION.REQUIRED' | translate }}</span>
         </label>
         <input
           id="userPassword"
           type="password"
           class="form-input"
           formControlName="password"
-          [ngClass]="{'error': loginForm.get('password').touched && loginForm.get('password').errors}" />
+          [ngClass]="{'error': loginForm.get('password').touched && loginForm.get('password').errors || (error$ | async)}" />
       </div>
 
       <div class="form-buttons between">
-        <a href="#" class="forgot-pass-link">Forgot password?</a>
+        <a href="#" class="forgot-pass-link">{{ 'LOGIN_FORM.FORGOT_LINK' | translate }}</a>
         <button class="button-style-primary" type="submit" [disabled]="loginForm.invalid">
-          Login
+          {{ 'LOGIN_FORM.SUBMIT' | translate }}
         </button>
       </div>
     </form>

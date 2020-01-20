@@ -7,6 +7,7 @@ import {HeaderComponent} from './header/header.component';
 import {LoaderComponent} from './loader/loader.component';
 import {RouterModule} from '@angular/router';
 import {IconSpriteModule} from 'ng-svg-icon-sprite';
+import {TranslateModule} from '@ngx-translate/core';
 
 const components = [
   BreadcrumbsComponent,
@@ -16,7 +17,7 @@ const components = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule, IconSpriteModule],
+  imports: [CommonModule, RouterModule, IconSpriteModule, TranslateModule],
   declarations: [...components],
   exports: [...components],
 })

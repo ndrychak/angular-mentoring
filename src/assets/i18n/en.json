@@ -1,0 +1,50 @@
+{
+  "LOGIN_FORM": {
+    "TITLE": "Login",
+    "SUBMIT": "Login",
+    "FORGOT_LINK": "Forgot password?",
+    "EMAIL": "E-mail",
+    "PASSWORD": "Password"
+  },
+  "USER": {
+    "GREETING": "Hello",
+    "LOGOUT": "Log off"
+  },
+  "COURSE": {
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "ADD": "Add course",
+    "LOAD_MORE": "Load more",
+    "SAVE": "Save",
+    "CANCEL": "Cancel",
+    "NEW_COURSE": "New course",
+    "EDIT_COURSE": "Edit course",
+    "TITLE": "Title",
+    "DESCRIPTION": "Description",
+    "DURATION": "Duration",
+    "DATE": "Date",
+    "AUTHORS": "Authors",
+    "NO_DATA": "No data. Feel free to add new course",
+    "COURSES": "Courses"
+  },
+  "COURSE_DELETE": {
+    "TITLE": "Delete course?",
+    "CONTENT": "Are you sure you want to delete",
+    "CANCEL": "Cancel",
+    "SUBMIT": "Yes, delete"
+  },
+  "SEARCH": {
+    "PLACEHOLDER": "Text to search"
+  },
+  "VALIDATION": {
+    "REQUIRED": "*required",
+    "LOGIN_FORM_INVALID": "Wrong e-mail or password",
+    "NUMBER": "Enter valid number",
+    "MAX_CHARS": "Maximum {{value}} characters"
+  },
+  "COPYRIGHT": "Copyright © Videocourses. All rights reserved",
+  "DURATION": {
+    "MIN": "min",
+    "HOUR": "h"
+  }
+}

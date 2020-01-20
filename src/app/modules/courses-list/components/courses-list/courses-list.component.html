@@ -8,12 +8,12 @@
   </section>
 
   <ng-template #noResults>
-    <p class="no-results">No data. Feel free to add new course</p>
+    <p class="no-results">{{ 'COURSE.NO_DATA' | translate }}</p>
   </ng-template>
 
   <button *ngIf="coursesList.length"
           class="panel courses-load-more"
           (click)="loadMore()">
-    <span class="courses-load-more-text">load more</span>
+    <span class="courses-load-more-text">{{ 'COURSE.LOAD_MORE' | translate }}</span>
   </button>
 </div>

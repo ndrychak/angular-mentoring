@@ -3,11 +3,12 @@
 
   <div class="form-item">
     <label for="courseTitle" class="form-label">
-      Title:
-      <span class="form-error" *ngIf="form.get('name').dirty && form.get('name').errors?.maxlength">
-        Maximum 50 characters
+      {{ 'COURSE.TITLE' | translate }}:
+      <span class="form-error"
+            *ngIf="form.get('name').dirty && form.get('name').errors?.maxlength"
+            [translate]="'VALIDATION.MAX_CHARS'" [translateParams]="{value: '50'}">
       </span>
-      <span class="form-required">*required</span>
+      <span class="form-required">{{ 'VALIDATION.REQUIRED' | translate }}</span>
     </label>
     <input
       id="courseTitle"
@@ -19,11 +20,12 @@
 
   <div class="form-item">
     <label for="courseInfo" class="form-label">
-      Description:
-      <span class="form-error" *ngIf="form.get('description').dirty && form.get('description').errors?.maxlength">
-        Maximum 500 characters
+      {{ 'COURSE.DESCRIPTION' | translate }}:
+      <span class="form-error"
+            *ngIf="form.get('description').dirty && form.get('description').errors?.maxlength"
+            [translate]="'VALIDATION.MAX_CHARS'" [translateParams]="{value: '500'}">
       </span>
-      <span class="form-required">*required</span>
+      <span class="form-required">{{ 'VALIDATION.REQUIRED' | translate }}</span>
     </label>
     <textarea id="courseInfo"
               class="form-input"
@@ -37,7 +39,7 @@
   <agm-authors-input [formControl]="form.controls['authors']"></agm-authors-input>
 
   <div class="form-buttons">
-    <a class="button-style-cancel" routerLink="/courses">Cancel</a>
-    <button class="button-style-primary" type="button" [disabled]="form.invalid" (click)="save()">Save</button>
+    <a class="button-style-cancel" routerLink="/courses">{{ 'COURSE.CANCEL' | translate }}</a>
+    <button class="button-style-primary" type="button" [disabled]="form.invalid" (click)="save()">{{ 'COURSE.SAVE' | translate }}</button>
   </div>
 </form>

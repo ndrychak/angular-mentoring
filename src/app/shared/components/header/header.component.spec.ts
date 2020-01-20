@@ -3,6 +3,7 @@ import { HeaderComponent } from './header.component';
 describe('HeaderComponent', () => {
   let sut;
   let store$;
+  let translate;
 
   beforeEach(() => {
     store$ = {
@@ -10,7 +11,12 @@ describe('HeaderComponent', () => {
       dispatch: jasmine.createSpy('dispatch')
     };
 
-    sut = new HeaderComponent(store$);
+    translate = {
+      get: jasmine.createSpy('get'),
+      onLangChange: jasmine.createSpy('onLangChange')
+    };
+
+    sut = new HeaderComponent(store$, translate);
   });
 
   describe('#logout', () => {

@@ -1,5 +1,8 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input, OnDestroy, OnInit} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {DateAdapter} from '@angular/material';
+import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'agm-date-input',
@@ -17,10 +20,26 @@ import {ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR} fro
   }]
 })
 
-export class DateInputComponent implements ControlValueAccessor {
+export class DateInputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() formControl: FormControl;
 
-  constructor(private cd: ChangeDetectorRef) {}
+  private translateSubscription: Subscription;
+
+  constructor(
+    private cd: ChangeDetectorRef,
+    private translate: TranslateService,
+    private adapter: DateAdapter<any>
+  ) {}
+
+  ngOnInit(): void {
+    this.translateSubscription = this.translate.onLangChange.subscribe((langChangeEvent: LangChangeEvent) => {
+      this.adapter.setLocale(langChangeEvent.lang);
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.translateSubscription.unsubscribe();
+  }
 
   changeDate($event) {
     this.writeValue($event.target.value);

@@ -7,18 +7,20 @@ import {IconSpriteModule} from 'ng-svg-icon-sprite';
 import {LoginPageComponent} from './pages/login-page.component';
 
 import {routes} from './login.routing';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
     LoginPageComponent
   ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        IconSpriteModule,
-        RouterModule.forChild(routes),
-        ReactiveFormsModule
-    ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IconSpriteModule,
+    RouterModule.forChild(routes),
+    ReactiveFormsModule,
+    TranslateModule
+  ],
   exports: [
     LoginPageComponent
   ]
