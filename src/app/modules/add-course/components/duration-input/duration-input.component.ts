@@ -1,5 +1,7 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, Input, OnDestroy, OnInit} from '@angular/core';
 import {ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR} from '@angular/forms';
+import {LangChangeEvent, TranslateService} from '@ngx-translate/core';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'agm-duration-input',
@@ -17,12 +19,30 @@ import {ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR} fro
   }]
 })
 
-export class DurationInputComponent implements ControlValueAccessor {
+export class DurationInputComponent implements ControlValueAccessor, OnInit, OnDestroy {
   @Input() formControl: FormControl;
 
-  constructor(private cd: ChangeDetectorRef) {}
+  private translateSubscription: Subscription;
+  public locale: string;
 
-  changeDuration($event) {
+  constructor(
+    private cd: ChangeDetectorRef,
+    private translate: TranslateService
+  ) {}
+
+  ngOnInit(): void {
+    this.locale = this.translate.currentLang;
+
+    this.translateSubscription = this.translate.onLangChange.subscribe((langChangeEvent: LangChangeEvent) => {
+      this.locale = langChangeEvent.lang;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.translateSubscription.unsubscribe();
+  }
+
+  changeDuration($event): void {
     this.writeValue($event.target.value);
     this.onTouched();
   }

@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {Store} from '@ngrx/store';
-
+import {TranslateService} from '@ngx-translate/core';
 import {RootStoreState, UserStoreActions, UserStoreSelectors} from '@core/store';
 
 @Component({
@@ -13,13 +13,16 @@ import {RootStoreState, UserStoreActions, UserStoreSelectors} from '@core/store'
 export class HeaderComponent implements OnInit {
   public userInfo$;
 
-  constructor(private store$: Store<RootStoreState.State>) {}
+  constructor(
+    private store$: Store<RootStoreState.State>,
+    public translate: TranslateService
+  ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.userInfo$ = this.store$.select(UserStoreSelectors.selectUserInfo);
   }
 
-  logout() {
+  logout(): void {
     this.store$.dispatch(new UserStoreActions.LogOutAction());
   }
 }

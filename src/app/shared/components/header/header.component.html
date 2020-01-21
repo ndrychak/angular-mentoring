@@ -8,15 +8,21 @@
       <div class="menu-item">
         <span class="user-login">
           <svg-icon-sprite [src]="'user'" [class]="'icon icon-user'"></svg-icon-sprite>
-          Hello, {{userInfo.name?.first}} {{userInfo.name?.last}}
+          {{ 'USER.GREETING' | translate }}, {{userInfo.name?.first}} {{userInfo.name?.last}}
         </span>
       </div>
       <div class="menu-item">
         <button class="log-off" (click)="logout()">
           <svg-icon-sprite [src]="'exit'" [class]="'icon icon-exit'"></svg-icon-sprite>
-          Log off
+          {{ 'USER.LOGOUT' | translate }}
         </button>
       </div>
     </nav>
+
+    <select class="lang-selector" #langSelect (change)="translate.use(langSelect.value)">
+      <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">
+        {{lang | uppercase}}
+      </option>
+    </select>
   </div>
 </header>

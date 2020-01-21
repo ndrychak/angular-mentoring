@@ -1,7 +1,7 @@
 <div class="form-item form-item-authors">
   <label for="courseAuthors" class="form-label">
-    Authors:
-    <span class="form-required">*required</span>
+    {{ 'COURSE.AUTHORS' | translate }}:
+    <span class="form-required">{{ 'VALIDATION.REQUIRED' | translate }}</span>
   </label>
 
   <div class="form-input" [ngClass]="{'error': formControl.dirty && formControl.errors}">

@@ -2,9 +2,15 @@ import { CoursesListItemComponent } from './courses-list-item.component';
 
 describe('CoursesListItemComponent', () => {
   let sut;
+  let translate;
 
   beforeEach(() => {
-    sut = new CoursesListItemComponent();
+    translate = {
+      get: jasmine.createSpy('get'),
+      onLangChange: jasmine.createSpy('onLangChange')
+    };
+
+    sut = new CoursesListItemComponent(translate);
 
     sut.deletedCourse = {
       emit: jasmine.createSpy('emit'),

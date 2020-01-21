@@ -1,6 +1,6 @@
 <form class="search-form">
   <svg-icon-sprite [src]="'search'" [class]="'search-icon'"></svg-icon-sprite>
   <label class="search-input-wrapper">
-    <input class="search-input" placeholder="Text to search" name="searchText" [formControl]="searchValue" />
+    <input class="search-input" placeholder="{{ 'SEARCH.PLACEHOLDER' | translate }}" name="searchText" [formControl]="searchValue" />
   </label>
 </form>

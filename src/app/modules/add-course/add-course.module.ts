@@ -23,6 +23,7 @@ import {CoursesService} from '@core/services/courses/courses.service';
 import {routes} from './add-course.routing';
 
 import {SharedModule} from '../../shared/shared.module';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {SharedModule} from '../../shared/shared.module';
     MatFormFieldModule,
     MatChipsModule,
     MatIconModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    TranslateModule
   ],
   exports: [
     AddCoursePageComponent

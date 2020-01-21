@@ -15,6 +15,7 @@ import {routes} from './courses-list.routing';
 import {CoursesService} from '@core/services/courses/courses.service';
 
 import {SharedModule} from '../../shared/shared.module';
+import {TranslateModule} from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -24,16 +25,17 @@ import {SharedModule} from '../../shared/shared.module';
     DeleteCoursePopupComponent,
     CoursesPageComponent,
   ],
-    imports: [
-        CommonModule,
-        RouterModule,
-        FormsModule,
-        IconSpriteModule,
-        MatDialogModule,
-        RouterModule.forChild(routes),
-        SharedModule,
-        ReactiveFormsModule
-    ],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    IconSpriteModule,
+    MatDialogModule,
+    RouterModule.forChild(routes),
+    SharedModule,
+    ReactiveFormsModule,
+    TranslateModule
+  ],
   providers: [
     CoursesService
   ],

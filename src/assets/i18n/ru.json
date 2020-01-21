@@ -1,0 +1,50 @@
+{
+  "LOGIN_FORM": {
+    "TITLE": "Вход на сайт",
+    "SUBMIT": "Вход",
+    "FORGOT_LINK": "Забыли пароль?",
+    "EMAIL": "Почта",
+    "PASSWORD": "Пароль"
+  },
+  "USER": {
+    "GREETING": "Привет",
+    "LOGOUT": "Выйти"
+  },
+  "COURSE": {
+    "EDIT": "Редактировать",
+    "DELETE": "Удалить",
+    "ADD": "Добавить курс",
+    "LOAD_MORE": "Загрузить ещё",
+    "SAVE": "Сохранить",
+    "CANCEL": "Отменить",
+    "NEW_COURSE": "Новый курс",
+    "EDIT_COURSE": "Редактировать курс",
+    "TITLE": "Название",
+    "DESCRIPTION": "Описание",
+    "DURATION": "Длительность",
+    "DATE": "Дата",
+    "AUTHORS": "Авторы",
+    "NO_DATA": "Ничего нет. Добавьте новый курс",
+    "COURSES": "Список курсов"
+  },
+  "COURSE_DELETE": {
+    "TITLE": "Удалить курс?",
+    "CONTENT": "Вы уверены что хотите удалить",
+    "CANCEL": "Нет",
+    "SUBMIT": "Да, удалить"
+  },
+  "SEARCH": {
+    "PLACEHOLDER": "Поиск..."
+  },
+  "VALIDATION":{
+    "REQUIRED": "*обязательное поле",
+    "LOGIN_FORM_INVALID": "Данные не подходят",
+    "NUMBER": "Введите число",
+    "MAX_CHARS": "Не более {{value}} символов"
+  },
+  "COPYRIGHT": "© Videocourses. Все права защищены",
+  "DURATION": {
+    "MIN": "мин",
+    "HOUR": "ч"
+  }
+}

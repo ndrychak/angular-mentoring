@@ -13,7 +13,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {
       breadcrumb: {
-        title: 'Courses'
+        title: 'COURSE.COURSES'
       }
     },
     children: [
@@ -26,7 +26,7 @@ const routes: Routes = [
         loadChildren: () => import('./modules/add-course/add-course.module').then(mod => mod.AddCourseModule),
         data: {
           breadcrumb: {
-            title: 'New Course'
+            title: 'COURSE.NEW_COURSE'
           }
         }
       }, {
